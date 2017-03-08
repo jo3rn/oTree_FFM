@@ -1,0 +1,33 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Welchen Snack wählst du?
+{% endblock %}
+
+{% block content %}
+<!--
+Documentation on how to write a django template here:
+https://docs.djangoproject.com/en/1.8/ref/templates/language/
+
+Bootstrap comes pre-loaded, so you can use any Bootstrap elements:
+http://getbootstrap.com/components/
+
+-->
+
+<img src="{% static image_path1 %}"/>
+<img src="{% static image_path2 %}"/>
+
+
+
+
+
+<br />
+<br />
+{% formfield player.f1 with label=label %}
+
+
+
+    {% next_button %}
+
+{% endblock %}
