@@ -2,11 +2,9 @@ from otree.api import Currency as c, currency_range
 from . import models
 from ._builtin import Page, WaitPage
 from .models import Constants
-
 import random
 
-
-class MyPage(Page):
+class Step1(Page):
     def vars_for_template(self):
         label = '{}'.format(self.session.vars['snack1']) + ' oder ' + '{}'.format(self.session.vars['snack2']) + '?'
 
@@ -27,6 +25,7 @@ class MyPage(Page):
         # ab hier dasselbe wie before_session_starts in models.py... TODO: DRY einhalten
 
         # Liste mit so vielen Zahlen, wie Bilder von Snacks
+        # TO DO: Anzahl an tatsächliche Snack-Bilder anpassen
         pictures = list(range(4))
         # Wähle eine zufällige Zahl aus pictures, transkodiere sie in den Namen des Snacks
         picture1_number = random.choice(pictures)
@@ -57,6 +56,6 @@ class Results(Page):
 
 
 page_sequence = [
-    MyPage,
+    Step1,
     Results
 ]
