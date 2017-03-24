@@ -109,9 +109,9 @@ SESSION_CONFIG_DEFAULTS = {
 SESSION_CONFIGS = [
      {
          'name': 'kosfeld_test',
-         'display_name': 'Kosfeld Test',
-         'num_demo_participants': 1,
-         'app_sequence': ['kosfeld_test'],
+         'display_name': 'Nudging Experiment',
+         'num_demo_participants': 3,
+         'app_sequence': ['BDM', 'kosfeld_test'],
      }
 ]
 
