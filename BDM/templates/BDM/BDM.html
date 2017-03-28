@@ -1,12 +1,44 @@
 {% extends "global/Page.html" %}
 {% load staticfiles otree_tags %}
 
+
 {% block title %}
-    Page title
+    Wie viel würdest du für diesen Snack zahlen?
 {% endblock %}
 
-{% block content %}
 
+{% block styles %}
+<style type="text/css">
+body {
+    background-color: black;
+    color: white;
+}
+
+output {
+  color: white
+}
+
+output:before {
+  content: "Deine Zahlungsbereitschaft: ";
+}
+
+output:after {
+	content: " €";
+}
+</style>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+function showWTP(val) {
+    document.getElementById("participant_wtp").innerHTML = val;
+}
+</script>
+{% endblock %}
+
+
+{% block content %}
 <!--
 Documentation on how to write a django template here:
 https://docs.djangoproject.com/en/1.8/ref/templates/language/
@@ -16,6 +48,25 @@ http://getbootstrap.com/components/
 
 -->
 
-    {% next_button %}
+<img src="{% static image_path %}"/>
 
+<br />
+<br />
+
+ <form>
+ 	<input name="slider_value" id="wtp" type="range" min="0"
+ 	value="0" max="5" step="0.1" oninput="showWTP(this.value)">
+ 	<output name="participant_wtp" for="wtp" id="participant_wtp">0</output>
+ </form>
+
+
+<br />
+
+<input type="hidden" name="rated_snack" value="{{snack}}" id="id_my_hidden_input"/>
+<br />
+{{ left }} von {{ Constants.num_snacks }} Snacks bewertet
+<br />
+<br />
+
+    {% next_button %}
 {% endblock %}
