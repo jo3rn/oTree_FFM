@@ -25,23 +25,22 @@ class BDM(Page):
 
 
     def before_next_page(self):
-        #zu Testzwecken
-        print("before_next_page")
-
-
         self.player.fill_BDM_dict()
         self.player.unfill_snack_list()
 
 
 
+class End(Page):
+    def is_displayed(self):
+        # zeige End-Seite nur nach der letzten Runde an
+        return self.round_number == Constants.num_rounds
 
-
-
-class Results(Page):
-    pass
+    def before_next_page(self):
+        self.player.sort_WTPs()
 
 
 page_sequence = [
     Instructions,
-    BDM
+    BDM,
+    End
 ]

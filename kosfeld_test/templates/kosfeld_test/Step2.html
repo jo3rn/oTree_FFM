@@ -16,7 +16,10 @@ http://getbootstrap.com/components/
 -->
 
 <img src="{% static image_path1 %}"/>
+<input type="hidden" name="offer_1" value="{{snack1}}" id="offer_1"/>
 <img src="{% static image_path2 %}"/>
+<input type="hidden" name="offer_2" value="{{snack2}}" id="offer_2"/>
+
 
 
 
@@ -24,7 +27,7 @@ http://getbootstrap.com/components/
 
 <br />
 <br />
-{% formfield player.f1 with label=label %}
+{% formfield player.decision with label=label %}
 
 
 

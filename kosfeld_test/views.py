@@ -4,7 +4,7 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 import random
 
-class Step1(Page):
+class Step2(Page):
     def vars_for_template(self):
         label = '{}'.format(self.session.vars['snack1']) + ' oder ' + '{}'.format(self.session.vars['snack2']) + '?'
 
@@ -29,20 +29,20 @@ class Step1(Page):
         pictures = list(range(4))
         # Wähle eine zufällige Zahl aus pictures, transkodiere sie in den Namen des Snacks
         picture1_number = random.choice(pictures)
-        snack1 = Constants.snacks[picture1_number]
+        snack1 = Constants.list_snacks[picture1_number]
         self.session.vars['snack1'] = snack1
         # entferne diese Zahl aus pictures, damit nicht 2x das gleiche Bild gewählt wird
         pictures.remove(picture1_number)
         # Wähle eine zweite zufällige Zahl aus pictures, transkodiere sie in den Namen des Snacks
         picture2_number = random.choice(pictures)
-        snack2 = Constants.snacks[picture2_number]
+        snack2 = Constants.list_snacks[picture2_number]
         self.session.vars['snack2'] = snack2
 
     # Radio Buttons aus Player-Class von models.py
     form_model = models.Player
-    form_fields = ['f1']
+    form_fields = ['offer_1', 'offer_2', 'decision']
 
-    def f1_choices(self):
+    def decision_choices(self):
         # die Snack-Namen neben den Radio-Buttons
         return [self.session.vars['snack1'], self.session.vars['snack2']]
 
@@ -56,6 +56,6 @@ class Results(Page):
 
 
 page_sequence = [
-    Step1,
+    Step2,
     Results
 ]

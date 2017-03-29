@@ -4,9 +4,10 @@ from otree.api import (
 )
 import random
 import os
+from operator import itemgetter
 
 
-author = 'Your name here'
+author = 'Jörn Wieber'
 
 doc = """
 shows participants pictures of snacks and asks for their willingness-to-pay
@@ -29,8 +30,10 @@ class Constants(BaseConstants):
         else:
             continue
 
-    # jeder Snack soll einmal abgefragt werden
-    num_rounds = num_snacks
+    # Anzahl an Entscheidungen, die gefällt werden sollen
+    num_rounds = 4
+
+
 
 
 class Subsession(BaseSubsession):
@@ -54,16 +57,18 @@ class Subsession(BaseSubsession):
                 print(p.participant.vars['num_snacks'])
 
 
-        # initialisiere BDM-Liste
+        # initialisiere BDM-Dictionary
         # erstellt ein zunächst leeres Dictionary, in das nach jeder Bewertung
-        # über Player.fill_BDM_list() ein key-value-Paar eingetragen wird
+        # über Player.fill_BDM_dict() ein key-value-Paar eingetragen wird
         # key: Snack
         # value: willingness-to-pay
-        for p in self.get_players():
-            if 'BDM' in p.participant.vars:
-                continue
-            else:
-                p.participant.vars['BDM'] = {}
+
+        if self.round_number == 1:          # damit Schleife nur 1x durchlaufen wird
+            for p in self.get_players():
+                if 'BDM' in p.participant.vars:
+                    continue
+                else:
+                    p.participant.vars['BDM'] = {}
 
 
 class Group(BaseGroup):
@@ -78,18 +83,56 @@ class Player(BasePlayer):
 
 
     def fill_BDM_dict(self):
-        #TODO: rated_snack field füllen (im Monitoring)
         rated_snack = self.slider_value
-
         # key: abgefragter Snack
         # value: willingness-to-pay
         self.participant.vars['BDM'][Constants.list_snacks[self.participant.vars['num_snacks'][0]]] = self.slider_value
-        #zu Testzwecken
-        print("fill_BDM_list")
-        print(self.participant.vars['BDM'])
 
 
-    # Slider für BDM
-    slider_value = models.CharField(widget=widgets.SliderInput(attrs={'step': '0.10'}), verbose_name="Deine Bewertung:", min="0.0", max="5.0")
+    def sort_WTPs(self):
+        '''Summe der potenzierten Differenzen der WTPs minimal halten
+        '''
+        # konvertiere BDM-dictionary in Liste von Tupel-Paaren: [(snack, WTP), (snack, WTP),...]
+        sorted_BDM_tuples = sorted(self.participant.vars['BDM'].items(), key=itemgetter(1))
+        # drehe Liste um, damit absteigend nach WTPs geordnet ist
+        sorted_BDM_tuples.reverse()
+        print('-----------------------sorted_BDM_tuples-------------------------------')
+        print(sorted_BDM_tuples)
+        BDM_length = len(sorted_BDM_tuples)
 
+        # initialisiere Liste mit den geringsten WTP-Differenzen (wird in nachfolgender Schleife gefüllt)
+        closest_WTPs = []
+
+        for index, element in enumerate(sorted_BDM_tuples):
+        # ermittelt Differenz zwischen höchster WTP und allen anderen WTPs,
+        # geht dann weiter zur zweit-höchsten WTP und ermittelt deren Differenz zu allen niedrigeren WTPs
+        # usw.
+            if index != BDM_length-1:       # wenn nicht letztes Element der Liste
+                i = index + 1
+                while i < BDM_length:
+                    WTP_difference = round(float(element[1])-float(sorted_BDM_tuples[i][1]), 1)
+                    # wenn closest_WTP-Liste noch nicht voll ODER die gerade ermittelte WTP-Differenz niedriger als das Maximum der bereits vorhandenen WTP-Differenzen
+                    if len(closest_WTPs) < Constants.num_rounds or max(closest_WTPs, key=itemgetter(2))[2] > WTP_difference:
+                        next_element = sorted_BDM_tuples[i][0]
+                        i += 1
+                        # füge Triple (Snack1, Snack2, WTP-Differenz zwischen Snack1 und Snack2) zu closest_WTP-Liste hinzu
+                        closest_WTPs.append((element[0], next_element, WTP_difference))
+
+                        # wenn closest_WTP-Liste voll: entferne größte WTP-Differenz
+                        if len(closest_WTPs) > Constants.num_rounds:
+                            closest_WTPs.remove(max(closest_WTPs, key=itemgetter(2)))
+
+
+        # speichere closest_WTP-Liste global in Teilnehmer-Variablen
+        self.participant.vars['closest_WTPs'] = closest_WTPs
+
+        print("-----------------------closest WTPs-------------------------------")
+        print(self.participant.vars['closest_WTPs'])
+
+
+
+    #### DATA-fields:
+    # was der Teilnehmer mit dem Schieberegler wählt
+    slider_value = models.CharField(widget=widgets.SliderInput())
+    # welchen Snack der Teilnehmer gerade bewertet
     rated_snack = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
