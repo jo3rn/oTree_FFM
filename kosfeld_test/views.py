@@ -42,9 +42,9 @@ class Step2(Page):
     form_model = models.Player
     form_fields = ['offer_1', 'offer_2', 'decision']
 
-    def decision_choices(self):
+    #def decision_choices(self):
         # die Snack-Namen neben den Radio-Buttons
-        return [self.session.vars['snack1'], self.session.vars['snack2']]
+    #    return [self.session.vars['snack1'], self.session.vars['snack2']]
 
 
 

@@ -5,6 +5,22 @@
     Welchen Snack wählst du?
 {% endblock %}
 
+{% block styles %}
+<style type="text/css">
+label > input{ /* HIDE RADIO */
+  visibility: hidden; /* Makes input not-clickable */
+  position: absolute; /* Remove input from document flow */
+}
+label > input + img{ /* IMAGE STYLES */
+  cursor:pointer;
+  border:8px solid transparent;
+}
+label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
+  border:8px solid #f00;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <!--
 Documentation on how to write a django template here:
@@ -15,20 +31,24 @@ http://getbootstrap.com/components/
 
 -->
 
-<img src="{% static image_path1 %}"/>
+
 <input type="hidden" name="offer_1" value="{{snack1}}" id="offer_1"/>
-<img src="{% static image_path2 %}"/>
 <input type="hidden" name="offer_2" value="{{snack2}}" id="offer_2"/>
 
+<form>
 
+<label for="s1">
+  <input name="decision" type="radio" id="s1" value="{{snack1}}" checked="checked"/>
+  <img src="{% static image_path1 %}">
+</label>
 
+<label for="s2">
+  <input name="decision" type="radio" id="s2" value="{{snack2}}"/>
+  <img src="{% static image_path2 %}">
+</label>
 
-
-
-<br />
-<br />
-{% formfield player.decision with label=label %}
-
+</form>
+{{ form.errors }}
 
 
     {% next_button %}

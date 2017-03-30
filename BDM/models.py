@@ -30,7 +30,10 @@ class Constants(BaseConstants):
         else:
             continue
 
-    # Anzahl an Entscheidungen, die gefällt werden sollen
+    # jeder Snack soll einmal abgfragt werden
+    #num_rounds = num_snacks
+
+    # Anzahl an Entscheidungen, die in Step 2 gefällt werden sollen
     num_rounds = 4
 
 
@@ -38,36 +41,26 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     def before_session_starts(self):
-        # initialisiere Teilnehmer-Snack-Liste
-        # erstellt für jeden Teilnehmer eine Liste mit Index-Zahlen für die Snack-Liste
-        # diese Index-Zahlen werden zufällig geordnet (random.shuffle)
-
-        # zu Testzwecken
-        count = 1
 
 
-        for p in self.get_players():
-            if 'num_snacks' not in p.participant.vars:
-                p.participant.vars['num_snacks'] = (list(range(Constants.num_snacks)))
-                random.shuffle(p.participant.vars['num_snacks'])
+        if self.round_number == 1:          # damit Schleifen nur 1x durchlaufen werden
 
-                # zu Testzwecken
-                print("zufällige Reihenfolge für Spieler " + str(count) + " erstellt")
-                count += 1
-                print(p.participant.vars['num_snacks'])
-
-
-        # initialisiere BDM-Dictionary
-        # erstellt ein zunächst leeres Dictionary, in das nach jeder Bewertung
-        # über Player.fill_BDM_dict() ein key-value-Paar eingetragen wird
-        # key: Snack
-        # value: willingness-to-pay
-
-        if self.round_number == 1:          # damit Schleife nur 1x durchlaufen wird
+            # initialisiere Index-Liste
+            # erstelle für jeden Teilnehmer eine Liste mit Indizes für die Snack-Liste
+            # diese Liste wird zufällig geordnet -> individuelle Reihenfolge für jeden Teilnehmer
             for p in self.get_players():
-                if 'BDM' in p.participant.vars:
-                    continue
-                else:
+                if 'num_snacks' not in p.participant.vars:
+                    p.participant.vars['num_snacks'] = (list(range(Constants.num_snacks)))
+                    random.shuffle(p.participant.vars['num_snacks'])
+
+
+            # initialisiere BDM-Dictionary
+            # erstellt ein zunächst leeres Dictionary, in das nach jeder Bewertung
+            # über Player.fill_BDM_dict() ein key-value-Paar eingetragen wird
+            # key: Snack
+            # value: willingness-to-pay
+            for p in self.get_players():
+                if 'BDM' not in p.participant.vars:
                     p.participant.vars['BDM'] = {}
 
 

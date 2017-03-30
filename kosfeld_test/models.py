@@ -105,4 +105,6 @@ class Player(BasePlayer):
     offer_1 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
     offer_2 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
     # der Snack, für den sich der Teilnehmer entscheidet
-    decision = models.CharField(widget=widgets.RadioSelect())
+    decision = models.CharField()
+
+    #decision = models.CharField(widget=widgets.RadioSelect())      {% formfield player.decision with label=label %}
