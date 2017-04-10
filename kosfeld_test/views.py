@@ -6,46 +6,50 @@ import random
 
 class Step2(Page):
     def vars_for_template(self):
-        label = '{}'.format(self.session.vars['snack1']) + ' oder ' + '{}'.format(self.session.vars['snack2']) + '?'
+        # zufällige Reihenfolge der zwei Snacks
+        # damit nicht immer der erste (=bessere) Snack default ist
+        zero_one = [0, 1]
+        random.shuffle(zero_one)
+        snack1 = self.participant.vars["snacks_to_show"][zero_one[0]]
+        snack2 = self.participant.vars["snacks_to_show"][zero_one[1]]
+
+        ### Fallunterscheidung basierend auf der zugehörigen Treatment-Gruppierung des Teilnehmers:
+        # Control-Gruppe
+        if self.participant.vars['treatment'] == 'control':
+            dependency1 = ''
+            dependency2 = ''
+
+        # Treatment 1
+        if self.participant.vars['treatment'] == 'treatment_1':
+            checked_or_not = ['checked="checked"', '']
+            random.shuffle(checked_or_not)
+            dependency1 = checked_or_not[0]
+            dependency2 = checked_or_not[1]
+
+        # Treatment 2
+        if self.participant.vars['treatment'] == 'treatment_2':
+            dependency1 = self.player.set_higher_WTP_as_default(snack1, snack2)
+            dependency2 = self.player.set_higher_WTP_as_default(snack2, snack1)
+
 
         return {# Pfad zu den Bildern der Snacks
-                'image_path1': 'kosfeld_test/' + self.session.vars['snack1'] + '.bmp',
-                'image_path2': 'kosfeld_test/' + self.session.vars['snack2'] + '.bmp',
-                # Label des Radio-Buttons
-                'label': label,
+                'image_path1': 'kosfeld_test/' + snack1 + '.bmp',
+                'image_path2': 'kosfeld_test/' + snack2 + '.bmp',
                 # Namen der Snacks
-                'snack1': self.session.vars['snack1'],
-                'snack2': self.session.vars['snack2']
+                'snack1': snack1,
+                'snack2': snack2,
+                # html-tags der radio buttons
+                'image1': '<input name="decision" type="radio" id="s1" value="' + snack1 + '"' + dependency1 + '/>',
+                'image2': '<input name="decision" type="radio" id="s2" value="' + snack2 + '"' + dependency2 + '/>'
                 }
 
     def before_next_page(self):
-        self.player.check_radio_input()
-
-
-        # ab hier dasselbe wie before_session_starts in models.py... TODO: DRY einhalten
-
-        # Liste mit so vielen Zahlen, wie Bilder von Snacks
-        # TO DO: Anzahl an tatsächliche Snack-Bilder anpassen
-        pictures = list(range(4))
-        # Wähle eine zufällige Zahl aus pictures, transkodiere sie in den Namen des Snacks
-        picture1_number = random.choice(pictures)
-        snack1 = Constants.list_snacks[picture1_number]
-        self.session.vars['snack1'] = snack1
-        # entferne diese Zahl aus pictures, damit nicht 2x das gleiche Bild gewählt wird
-        pictures.remove(picture1_number)
-        # Wähle eine zweite zufällige Zahl aus pictures, transkodiere sie in den Namen des Snacks
-        picture2_number = random.choice(pictures)
-        snack2 = Constants.list_snacks[picture2_number]
-        self.session.vars['snack2'] = snack2
+        # aus der Liste der anzuzeigenden Snacks die 2 entfernen, die gerade angezeigt wurden
+        self.player.delete_two_snacks()
 
     # Radio Buttons aus Player-Class von models.py
     form_model = models.Player
     form_fields = ['offer_1', 'offer_2', 'decision']
-
-    #def decision_choices(self):
-        # die Snack-Namen neben den Radio-Buttons
-    #    return [self.session.vars['snack1'], self.session.vars['snack2']]
-
 
 
 

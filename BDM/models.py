@@ -30,11 +30,8 @@ class Constants(BaseConstants):
         else:
             continue
 
-    # jeder Snack soll einmal abgfragt werden
-    #num_rounds = num_snacks
-
-    # Anzahl an Entscheidungen, die in Step 2 gefällt werden sollen
-    num_rounds = 4
+    # Anzahl an Entscheidungen, die je in Step 1 und 2 gefällt werden sollen = Anzahl Snacks gesamt
+    num_rounds = len(os.listdir('_static\\kosfeld_test'))
 
 
 
@@ -83,7 +80,7 @@ class Player(BasePlayer):
 
 
     def sort_WTPs(self):
-        '''Summe der potenzierten Differenzen der WTPs minimal halten
+        '''Differenzen der WTPs minimal halten
         '''
         # konvertiere BDM-dictionary in Liste von Tupel-Paaren: [(snack, WTP), (snack, WTP),...]
         sorted_BDM_tuples = sorted(self.participant.vars['BDM'].items(), key=itemgetter(1))
@@ -96,6 +93,9 @@ class Player(BasePlayer):
         # initialisiere Liste mit den geringsten WTP-Differenzen (wird in nachfolgender Schleife gefüllt)
         closest_WTPs = []
 
+
+
+        # TODO: Fehleranalyse: läuft bei einer Wertung von 0 für alle Snacks in eine Endlosschleife
         for index, element in enumerate(sorted_BDM_tuples):
         # ermittelt Differenz zwischen höchster WTP und allen anderen WTPs,
         # geht dann weiter zur zweit-höchsten WTP und ermittelt deren Differenz zu allen niedrigeren WTPs
@@ -121,6 +121,18 @@ class Player(BasePlayer):
 
         print("-----------------------closest WTPs-------------------------------")
         print(self.participant.vars['closest_WTPs'])
+
+        # Liste mit Snacks aus closest WTPs, um später davon die Pfade zu den Bildern zu bestimmen
+        snacks_to_show = []
+        for i in closest_WTPs:
+            snacks_to_show.append(i[0])
+            snacks_to_show.append(i[1])
+
+        self.participant.vars["snacks_to_show"] = snacks_to_show
+
+        print("-----------------------snacks_to_show-------------------------------")
+        print(snacks_to_show)
+
 
 
 

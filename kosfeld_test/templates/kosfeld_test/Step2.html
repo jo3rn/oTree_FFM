@@ -38,12 +38,12 @@ http://getbootstrap.com/components/
 <form>
 
 <label for="s1">
-  <input name="decision" type="radio" id="s1" value="{{snack1}}" checked="checked"/>
+  {{image1 | safe}}
   <img src="{% static image_path1 %}">
 </label>
 
 <label for="s2">
-  <input name="decision" type="radio" id="s2" value="{{snack2}}"/>
+  {{image2 | safe}}
   <img src="{% static image_path2 %}">
 </label>
 
