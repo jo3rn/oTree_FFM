@@ -19,11 +19,11 @@ class Constants(BaseConstants):
     players_per_group = None
 
     # Anzahl unterschiedlicher Snack-Bilder, basierend auf Dateien im Snackbilder-Ordner
-    num_snacks = len(os.listdir('_static\\kosfeld_test'))
+    num_snacks = len(os.listdir('_static//kosfeld_test'))
 
     # Liste der Snacks, basierend auf .bmp-Dateien im Snackbilder-Ordner
     list_snacks = []
-    for snack in os.listdir('_static\\kosfeld_test'):
+    for snack in os.listdir('_static//kosfeld_test'):
         if snack.endswith('.bmp'):
             snack = snack[:-4]
             list_snacks.append(snack)
@@ -31,7 +31,7 @@ class Constants(BaseConstants):
             continue
 
     # Anzahl an Entscheidungen, die je in Step 1 und 2 gefällt werden sollen = Anzahl Snacks gesamt
-    num_rounds = len(os.listdir('_static\\kosfeld_test'))
+    num_rounds = len(os.listdir('_static//kosfeld_test'))
 
 
 
@@ -49,6 +49,11 @@ class Subsession(BaseSubsession):
                 if 'num_snacks' not in p.participant.vars:
                     p.participant.vars['num_snacks'] = (list(range(Constants.num_snacks)))
                     random.shuffle(p.participant.vars['num_snacks'])
+
+            # initialisiere selbe Index-Liste für Step 4 (BDM2)
+            for p in self.get_players():
+                if 'num_snacks_Step4' not in p.participant.vars:
+                    p.participant.vars['num_snacks_Step4'] = p.participant.vars['num_snacks']
 
 
             # initialisiere BDM-Dictionary

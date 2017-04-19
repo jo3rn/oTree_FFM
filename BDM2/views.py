@@ -9,33 +9,30 @@ class Instructions(Page):
     def is_displayed(self):
         return self.round_number == 1
 
-class BDM(Page):
+
+class BDM2(Page):
     def vars_for_template(self):
         return {
-            'image_path': 'kosfeld_test/' + str(Constants.list_snacks[self.participant.vars['num_snacks'][0]]) + '.bmp',
-            'snack'     : str(Constants.list_snacks[self.participant.vars['num_snacks'][0]]),
-            'left'      : len(Constants.list_snacks)-len(self.participant.vars['num_snacks'])
+            'image_path': 'kosfeld_test/' + str(Constants.list_snacks[self.participant.vars['num_snacks_Step4'][0]]) + '.bmp',
+            'snack'     : str(Constants.list_snacks[self.participant.vars['num_snacks_Step4'][0]]),
+            'left'      : len(Constants.list_snacks)-len(self.participant.vars['num_snacks_Step4'])
         }
 
     def before_next_page(self):
-        self.player.fill_BDM_dict()
         self.player.unfill_snack_list()
 
     form_model = models.Player
     form_fields = ['slider_value', 'rated_snack']
-
 
 class End(Page):
     def is_displayed(self):
         # zeige End-Seite nur nach der letzten Runde an
         return self.round_number == Constants.num_rounds
 
-    def before_next_page(self):
-        self.player.sort_WTPs()
 
 
 page_sequence = [
     Instructions,
-    BDM,
+    BDM2,
     End
 ]

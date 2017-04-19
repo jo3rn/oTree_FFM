@@ -21,7 +21,7 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 4
     list_snacks = []
-    for snack in os.listdir('_static\\kosfeld_test'):
+    for snack in os.listdir('_static//kosfeld_test'):
         if snack.endswith('.bmp'):
             snack = snack[:-4]
             list_snacks.append(snack)
