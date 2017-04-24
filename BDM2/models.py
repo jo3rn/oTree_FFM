@@ -13,7 +13,7 @@ again shows participants pictures of snacks and asks for their willingness-to-pa
 
 
 class Constants(BaseConstants):
-    name_in_url = 'BDM2'
+    name_in_url = 'Step4'
     players_per_group = None
 
     # Anzahl unterschiedlicher Snack-Bilder, basierend auf Dateien im Snackbilder-Ordner

@@ -15,7 +15,7 @@ shows participants pictures of snacks and asks for their willingness-to-pay
 
 
 class Constants(BaseConstants):
-    name_in_url = 'BDM'
+    name_in_url = 'Step1'
     players_per_group = None
 
     # Anzahl unterschiedlicher Snack-Bilder, basierend auf Dateien im Snackbilder-Ordner
@@ -30,7 +30,7 @@ class Constants(BaseConstants):
         else:
             continue
 
-    # Anzahl an Entscheidungen, die je in Step 1 und 2 gefällt werden sollen = Anzahl Snacks gesamt
+    # Anzahl an Entscheidungen, die in Step 1 gefällt werden sollen = Anzahl Snacks gesamt
     num_rounds = len(os.listdir('_static//kosfeld_test'))
 
 
@@ -47,13 +47,12 @@ class Subsession(BaseSubsession):
             # diese Liste wird zufällig geordnet -> individuelle Reihenfolge für jeden Teilnehmer
             for p in self.get_players():
                 if 'num_snacks' not in p.participant.vars:
+                    # Liste für Step 1
                     p.participant.vars['num_snacks'] = (list(range(Constants.num_snacks)))
                     random.shuffle(p.participant.vars['num_snacks'])
-
-            # initialisiere selbe Index-Liste für Step 4 (BDM2)
-            for p in self.get_players():
-                if 'num_snacks_Step4' not in p.participant.vars:
-                    p.participant.vars['num_snacks_Step4'] = p.participant.vars['num_snacks']
+                    # Liste für Step 4
+                    p.participant.vars['num_snacks_Step4'] = (list(range(Constants.num_snacks)))
+                    random.shuffle(p.participant.vars['num_snacks_Step4'])
 
 
             # initialisiere BDM-Dictionary
@@ -99,8 +98,6 @@ class Player(BasePlayer):
         closest_WTPs = []
 
 
-
-        # TODO: Fehleranalyse: läuft bei einer Wertung von 0 für alle Snacks in eine Endlosschleife
         for index, element in enumerate(sorted_BDM_tuples):
         # ermittelt Differenz zwischen höchster WTP und allen anderen WTPs,
         # geht dann weiter zur zweit-höchsten WTP und ermittelt deren Differenz zu allen niedrigeren WTPs
@@ -119,6 +116,8 @@ class Player(BasePlayer):
                         # wenn closest_WTP-Liste voll: entferne größte WTP-Differenz
                         if len(closest_WTPs) > Constants.num_rounds:
                             closest_WTPs.remove(max(closest_WTPs, key=itemgetter(2)))
+                    else:
+                        break
 
 
         # speichere closest_WTP-Liste global in Teilnehmer-Variablen
@@ -138,6 +137,18 @@ class Player(BasePlayer):
         print("-----------------------snacks_to_show-------------------------------")
         print(snacks_to_show)
 
+        # ordne Snacks neu (zufällig) für Step 3:
+        snacks_to_show_3 = list(set(snacks_to_show))
+        print(snacks_to_show_3)
+        random.shuffle(snacks_to_show_3)
+        while len(snacks_to_show_3) < len(snacks_to_show):
+            random_snack = random.choice(snacks_to_show_3)
+            if random_snack != snacks_to_show_3[-1]:
+                snacks_to_show_3.append(random_snack)
+
+        self.participant.vars["snacks_to_show_step3"] = snacks_to_show_3
+        print("-----------------------snacks_Step_3-------------------------------")
+        print(snacks_to_show_3)
 
 
 

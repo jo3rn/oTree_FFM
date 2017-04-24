@@ -17,7 +17,7 @@ lets participant choose between 2 images the snack he/she prefers
 
 
 class Constants(BaseConstants):
-    name_in_url = 'kosfeld_test'
+    name_in_url = 'Step2'
     players_per_group = None
     num_rounds = 4
     list_snacks = []
