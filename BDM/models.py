@@ -21,10 +21,10 @@ class Constants(BaseConstants):
     # Anzahl unterschiedlicher Snack-Bilder, basierend auf Dateien im Snackbilder-Ordner
     num_snacks = len(os.listdir('_static//kosfeld_test'))
 
-    # Liste der Snacks, basierend auf .bmp-Dateien im Snackbilder-Ordner
+    # Liste der Snacks, basierend auf .jpg-Dateien im Snackbilder-Ordner
     list_snacks = []
     for snack in os.listdir('_static//kosfeld_test'):
-        if snack.endswith('.bmp'):
+        if snack.endswith('.JPG'):
             snack = snack[:-4]
             list_snacks.append(snack)
         else:

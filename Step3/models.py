@@ -22,7 +22,7 @@ class Constants(BaseConstants):
     num_rounds = 4
     list_snacks = []
     for snack in os.listdir('_static//kosfeld_test'):
-        if snack.endswith('.bmp'):
+        if snack.endswith('.JPG'):
             snack = snack[:-4]
             list_snacks.append(snack)
         else:

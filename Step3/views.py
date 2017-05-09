@@ -15,8 +15,8 @@ class Step3(Page):
         snack2 = self.participant.vars["snacks_to_show_step3"][1]
 
         return {# Pfad zu den Bildern der Snacks
-                'image_path1': 'kosfeld_test/' + snack1 + '.bmp',
-                'image_path2': 'kosfeld_test/' + snack2 + '.bmp',
+                'image_path1': 'kosfeld_test/' + snack1 + '.JPG',
+                'image_path2': 'kosfeld_test/' + snack2 + '.JPG',
                 # Namen der Snacks
                 'snack1': snack1,
                 'snack2': snack2,
