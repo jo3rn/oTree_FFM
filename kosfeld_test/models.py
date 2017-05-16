@@ -28,6 +28,12 @@ class Constants(BaseConstants):
         else:
             continue
 
+    default_ranking = open('_static//default_ranking.txt', 'r')
+    healthy_list = []
+    for line in default_ranking:
+        healthy_list.append(line.rstrip('\n'))
+
+    default_ranking.close()
 
 class Subsession(BaseSubsession):
     def before_session_starts(self):
@@ -55,9 +61,14 @@ class Player(BasePlayer):
             self.participant.vars["snacks_to_show"].pop(0)
             self.participant.vars["snacks_to_show"].pop(0)
 
+#    def set_higher_WTP_as_default(self, snack1, snack2):
+#        if self.participant.vars['BDM'].get(snack1) > self.participant.vars['BDM'].get(snack2):
+#            return 'checked="checked"'
+#        else:
+#            return ''
 
-    def set_higher_WTP_as_default(self, snack1, snack2):
-        if self.participant.vars['BDM'].get(snack1) > self.participant.vars['BDM'].get(snack2):
+    def set_healthier_as_default(self, snack1, snack2):
+        if Constants.healthy_list.index(snack1) < Constants.healthy_list.index(snack2):
             return 'checked="checked"'
         else:
             return ''

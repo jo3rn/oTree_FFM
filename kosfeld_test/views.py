@@ -28,8 +28,10 @@ class Step2(Page):
 
         # Treatment 2
         if self.participant.vars['treatment'] == 'treatment_2':
-            dependency1 = self.player.set_higher_WTP_as_default(snack1, snack2)
-            dependency2 = self.player.set_higher_WTP_as_default(snack2, snack1)
+#            dependency1 = self.player.set_higher_WTP_as_default(snack1, snack2)
+#            dependency2 = self.player.set_higher_WTP_as_default(snack2, snack1)
+            dependency1 = self.player.set_healthier_as_default(snack1, snack2)
+            dependency2 = self.player.set_healthier_as_default(snack2, snack1)
 
 
         return {# Pfad zu den Bildern der Snacks
