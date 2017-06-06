@@ -29,6 +29,16 @@ class End(Page):
         # zeige End-Seite nur nach der letzten Runde an
         return self.round_number == Constants.num_rounds
 
+    def vars_for_template(self):
+        return {
+            'random_snack': self.participant.vars['random_snack'],
+            'random_price': float(self.participant.vars['random_price']),
+            'participant_WTP': float(self.participant.vars['BDM'][self.participant.vars['random_snack']])
+        }
+
+    form_model = models.Player
+    form_fields = ['won_snack', 'won_price']
+
 
 
 page_sequence = [

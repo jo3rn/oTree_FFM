@@ -3,6 +3,7 @@ from otree.api import (
     Currency as c, currency_range
 )
 import os
+import random
 
 
 author = 'Jörn Wieber'
@@ -33,7 +34,16 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
+    def before_session_starts(self):
+        if self.round_number == 1:
+            for p in self.get_players():
+                # zufälliger Snack, der am Ende ausbezahlt werden könnte
+                p.participant.vars['random_snack'] = random.choice(Constants.list_snacks)
+                print(p.participant.vars['random_snack'])
+
+                # Preis für den zufälligen Snack
+                p.participant.vars['random_price'] = random.randrange(0, 50)/10
+                print(p.participant.vars['random_price'])
 
 
 class Group(BaseGroup):
@@ -47,8 +57,13 @@ class Player(BasePlayer):
         self.participant.vars['num_snacks_Step4'].pop(0)
 
 
+
     #### DATA-fields:
     # was der Teilnehmer mit dem Schieberegler wählt
     slider_value = models.CharField(widget=widgets.SliderInput())
     # welchen Snack der Teilnehmer gerade bewertet
     rated_snack = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # zufälliger Snack, den der Teilnehmer "gewinnen" kann
+    won_snack = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # Preis des Snacks, sofern kleiner-gleich der Zahlungsbereitschaft
+    won_price = models.CharField(widget=widgets.HiddenInput(), verbose_name='')

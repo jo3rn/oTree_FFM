@@ -61,13 +61,8 @@ class Player(BasePlayer):
             self.participant.vars["snacks_to_show"].pop(0)
             self.participant.vars["snacks_to_show"].pop(0)
 
-#    def set_higher_WTP_as_default(self, snack1, snack2):
-#        if self.participant.vars['BDM'].get(snack1) > self.participant.vars['BDM'].get(snack2):
-#            return 'checked="checked"'
-#        else:
-#            return ''
-
     def set_healthier_as_default(self, snack1, snack2):
+        # TO DO: exception falls snack nicht in Liste ist (sollte eigentlich nicht passieren)
         if Constants.healthy_list.index(snack1) < Constants.healthy_list.index(snack2):
             return 'checked="checked"'
         else:
@@ -75,6 +70,10 @@ class Player(BasePlayer):
 
 
     #### DATA-fields
+    # Kontrollfragen - dem Experimentator wird mit "HILFE" eine falsche Antwort signalisiert
+    control_4 = models.CharField(verbose_name="Kotrollfrage 4:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
+    control_5 = models.CharField(verbose_name="Kotrollfrage 5:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
+    control_6 = models.CharField(verbose_name="Kotrollfrage 6:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
     # die zwei Snacks, zwischen denen sich der Teilnehmer entscheiden muss
     offer_1 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
     offer_2 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')

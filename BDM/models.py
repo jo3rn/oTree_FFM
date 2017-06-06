@@ -69,6 +69,7 @@ class Group(BaseGroup):
     pass
 
 
+
 class Player(BasePlayer):
     def unfill_snack_list(self):
         ''' entferne erste Index-Zahl aus Teilnehmer-Snack-Liste
@@ -153,6 +154,10 @@ class Player(BasePlayer):
 
 
     #### DATA-fields:
+    # Kontrollfragen - dem Experimentator wird mit "HILFE" eine falsche Antwort signalisiert
+    control_1 = models.CharField(verbose_name="Kotrollfrage 1:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
+    control_2 = models.CharField(verbose_name="Kotrollfrage 2:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
+    control_3 = models.CharField(verbose_name="Kotrollfrage 3:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
     # was der Teilnehmer mit dem Schieberegler wählt
     slider_value = models.CharField(widget=widgets.SliderInput())
     # welchen Snack der Teilnehmer gerade bewertet

@@ -7,7 +7,33 @@ import random
 
 class Instructions(Page):
     def is_displayed(self):
+        # zeige Instruktionen nur zu  Beginn an
         return self.round_number == 1
+
+class TestRun(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+
+    def vars_for_template(self):
+        test_image = random.choice(Constants.list_snacks)
+        return {
+            'image_path': 'kosfeld_test/' + str(test_image) + '.JPG'
+        }
+
+class Control(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+
+    form_model = models.Player
+    form_fields = ['control_1', 'control_2', 'control_3']
+
+# class WaitPage(WaitPage):
+class WaitPage(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+
+    title_text = "Bitte warten..."
+    body_text = "...bis alle Teilnehmer die Kontrollfragen beantwortet haben."
 
 class BDM(Page):
     def vars_for_template(self):
@@ -36,6 +62,11 @@ class End(Page):
 
 page_sequence = [
     Instructions,
+    TestRun,
+    TestRun,
+    TestRun,
+    Control,
+    WaitPage,
     BDM,
     End
 ]

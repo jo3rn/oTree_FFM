@@ -7,7 +7,20 @@
 
 {% block content %}
 
-... Zwischenstufe 1 -> 2
-
+Der zufällig gezogene Snack ist: {{random_snack}} <br />
+Der zufällig generierte Preis dafür ist: {{random_price}} € <br />
+Deine Zahlungsbereitschaft für diesen Snack war: {{participant_WTP}} € <br />
+<br />
+{% if participant_WTP >= random_price %}
+  Der Snack wird Teil deiner Auszahlung. Deine Auszahlung verringert sich dadurch um {{random_price}} €.
+  <input type="hidden" name="won_snack" value="{{random_snack}}" id="won_snack"/>
+  <input type="hidden" name="won_price" value="{{random_price}}" id="won_price"/>
+  {% else %}
+    Der Snack wird nicht Teil deiner Auszahlung, da dessen Preis deine Zahlungsbereitschaft übersteigt.
+    <input type="hidden" name="won_snack" value="{{random_snack}}" id="won_snack"/>
+    <input type="hidden" name="won_price" value="null" id="won_price"/>
+{% endif %}
+<br />
+<br />
     {% next_button %}
 {% endblock %}
