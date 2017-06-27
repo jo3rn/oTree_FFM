@@ -37,7 +37,8 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     def before_session_starts(self):
-
+        pass
+        '''
         # Weise einmalig Teilnehmer abwechselnd einem bestimmten Treatment zu
         if self.round_number == 1:
             treatments = itertools.cycle(['control', 'treatment_1', 'treatment_2'])
@@ -49,7 +50,7 @@ class Subsession(BaseSubsession):
         for p in self.get_players():
             p.treatment = p.participant.vars['treatment']
 
-
+'''
 
 class Group(BaseGroup):
     pass

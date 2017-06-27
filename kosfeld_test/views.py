@@ -92,10 +92,10 @@ class Results(Page):
 
 
 page_sequence = [
-    TestRun2,
-    TestRun2,
-    TestRun2,
-    Control2,
+#    TestRun2,
+#    TestRun2,
+#    TestRun2,
+#    Control2,
     Step2,
     Results
 ]

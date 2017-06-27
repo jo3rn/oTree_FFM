@@ -16,11 +16,11 @@ if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
 else:
     DEBUG = True
 
-ADMIN_USERNAME = 'otrad'
+ADMIN_USERNAME = 'admin'
 
 # for security, best to set admin password in an environment variable
-# ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
-ADMIN_PASSWORD = 'PW_4_ot'
+ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
+
 
 # don't share this with anybody.
 SECRET_KEY = 'x_3ymkbf5=-=abpzu-@@5k@v=r#oim14x+y4r_q8wmh(lndy0f'
@@ -46,8 +46,8 @@ DATABASES = {
 # to DEMO. This will allow people to play in demo mode, but not access
 # the full admin interface.
 
-#AUTH_LEVEL = environ.get('OTREE_AUTH_LEVEL')
-AUTH_LEVEL = 'STUDY'
+AUTH_LEVEL = environ.get('OTREE_AUTH_LEVEL')
+
 
 # setting for integration with AWS Mturk
 AWS_ACCESS_KEY_ID = environ.get('AWS_ACCESS_KEY_ID')
@@ -116,6 +116,15 @@ SESSION_CONFIGS = [
          'app_sequence': ['BDM', 'kosfeld_test', 'Step3', 'BDM2'],
      }
 ]
+
+ROOMS = [
+    {
+        'name': 'FLEXLab',
+        'display_name': 'FLEX Laboratory (25 seats)',
+        'participant_label_file': 'FLEXLab.txt',
+    },
+]
+
 
 # anything you put after the below line will override
 # oTree's default settings. Use with caution.

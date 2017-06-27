@@ -5,6 +5,7 @@ from otree.api import (
 import random
 import os
 from operator import itemgetter
+import itertools
 
 
 author = 'Jörn Wieber'
@@ -63,6 +64,17 @@ class Subsession(BaseSubsession):
             for p in self.get_players():
                 if 'BDM' not in p.participant.vars:
                     p.participant.vars['BDM'] = {}
+
+        # Weise einmalig Teilnehmer abwechselnd einem bestimmten Treatment zu
+        if self.round_number == 1:
+            treatments = itertools.cycle(['control', 'treatment_1', 'treatment_2'])
+            for p in self.get_players():
+                p.participant.vars['treatment'] = next(treatments)
+                print(p.participant.vars['treatment'])
+
+        # Fülle in Datenfeld, welchem Treatment der Teilnehmer zugeordnet ist
+        for p in self.get_players():
+            p.treatment = p.participant.vars['treatment']
 
 
 class Group(BaseGroup):
@@ -155,9 +167,17 @@ class Player(BasePlayer):
 
     #### DATA-fields:
     # Kontrollfragen - dem Experimentator wird mit "HILFE" eine falsche Antwort signalisiert
-    control_1 = models.CharField(verbose_name="Kotrollfrage 1:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
-    control_2 = models.CharField(verbose_name="Kotrollfrage 2:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
-    control_3 = models.CharField(verbose_name="Kotrollfrage 3:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
+    control_1 = models.CharField(verbose_name="Welche Ihrer Entscheidungen sind für Ihre Auszahlung relevant?",
+    choices=[   ['HILFE', 'Jede Entscheidung zählt.'],
+                ['HILFE', 'Eine der Entscheidungen in Stufe 1 wird zufällig zur Auszahlung ausgewählt.'],
+                ['ok', 'Eine der Entscheidungen aus einer der vier Stufen des Experiments wird zufällig zur Auszahlung ausgewählt.']],
+    widget=widgets.RadioSelect())
+    control_2 = models.CharField(verbose_name="Wenn ich immer eine Zahlungsbereitschaft von 0 Euro angebe, erhalten ich eine garantierte Auszahlung von XX Euro.", choices=[['ok', 'korrekt'], ['HILFE', 'nicht korrekt']], widget=widgets.RadioSelect())
+    control_3 = models.CharField(verbose_name="Wenn eine der Stufen 2 oder 3 zur Auszahlung ausgewählt wird, erhalte ich dennoch die garantierte Auszahlung von XX Euro aus Stufe 1 oder 4.", choices=[['ok', 'korrekt'], ['HILFE', 'nicht korrekt']], widget=widgets.RadioSelect())
+    control_4 = models.CharField(verbose_name="Ich erwerbe maximal ein Gut.", choices=[['ok', 'korrekt'], ['HILFE', 'nicht korrekt']], widget=widgets.RadioSelect())
+    control_5 = models.CharField(verbose_name="Indem ich eine niedrigere Zahlungsbereitschaft angebe, kann ich einen niedrigeren Preis erhalten, als wenn ich meine wahre Zahlungsbereitschaft angeben würde.", choices=[['HILFE', 'korrekt'], ['ok', 'nicht korrekt']], widget=widgets.RadioSelect())
+    control_6 = models.CharField(verbose_name="Indem ich eine niedrigere Zahlungsbereitschaft angebe, kann ich nicht beeinflussen, welchen Preis ich zahle wenn ich das Gut kaufe, da der Preis zufällig bestimmt wird. Ich zahle diesen zufällig gezogenen Preis nur, falls er nicht höher als meine Zahlungsbereitschaft ist.", choices=[['ok', 'korrekt'], ['HILFE', 'nicht korrekt']], widget=widgets.RadioSelect())
+    control_7 = models.CharField(verbose_name="Indem ich eine niedrigere Zahlungsbereitschaft angebe kann es passieren, dass der zufällig gezogene Preis oberhalb dieser angegebenen, aber unterhalb meiner tatsächlichen Zahlungsbereitschaft liegt. Ich würde dann das Gut nicht bekommen, obwohl ich es zu einem Preis hätte kaufen können, der unter meiner tatsächlichen Zahlungsbereitschaft liegt.", choices=[['ok', 'korrekt'], ['HILFE', 'nicht korrekt']], widget=widgets.RadioSelect())
     # was der Teilnehmer mit dem Schieberegler wählt
     slider_value = models.CharField(widget=widgets.SliderInput())
     # welchen Snack der Teilnehmer gerade bewertet

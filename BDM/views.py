@@ -25,9 +25,12 @@ class Control(Page):
         return self.round_number == 1
 
     form_model = models.Player
-    form_fields = ['control_1', 'control_2', 'control_3']
+    form_fields = [ 'control_1', 'control_2', 'control_3', 'control_4',
+                    'control_5', 'control_6', 'control_7']
 
 # class WaitPage(WaitPage):
+# WaitPage class wird nicht genommen, damit es beim letzten User nicht automatisch weiter geht.
+# Der Experimentator setzt mit "advanced slowest user" das Experiment fort
 class WaitPage(Page):
     def is_displayed(self):
         return self.round_number == 1
@@ -55,6 +58,11 @@ class End(Page):
     def is_displayed(self):
         # zeige End-Seite nur nach der letzten Runde an
         return self.round_number == Constants.num_rounds
+
+    def vars_for_template(self):
+        return {
+            'treatment'     : str(self.participant.vars['treatment'])
+        }
 
     def before_next_page(self):
         self.player.sort_WTPs()

@@ -7,6 +7,11 @@ import random
 class Instructions(Page):
     def is_displayed(self):
         return self.round_number == 1
+        
+    def vars_for_template(self):
+        return {
+            'treatment'     : str(self.participant.vars['treatment'])
+        }
 
 
 class Step3(Page):
