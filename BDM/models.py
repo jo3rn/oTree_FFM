@@ -55,6 +55,11 @@ class Subsession(BaseSubsession):
                     p.participant.vars['num_snacks_Step4'] = (list(range(Constants.num_snacks)))
                     random.shuffle(p.participant.vars['num_snacks_Step4'])
 
+                # für Auszahlung:
+                if 'step2_decisions' not in p.participant.vars:
+                    p.participant.vars['step2_decisions'] = []
+                    p.participant.vars['step3_decisions'] = []
+
 
             # initialisiere BDM-Dictionary
             # erstellt ein zunächst leeres Dictionary, in das nach jeder Bewertung
@@ -64,6 +69,7 @@ class Subsession(BaseSubsession):
             for p in self.get_players():
                 if 'BDM' not in p.participant.vars:
                     p.participant.vars['BDM'] = {}
+                    p.participant.vars['WTPs_step_4'] = {}
 
         # Weise einmalig Teilnehmer abwechselnd einem bestimmten Treatment zu
         if self.round_number == 1:

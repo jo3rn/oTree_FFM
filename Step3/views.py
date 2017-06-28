@@ -7,7 +7,7 @@ import random
 class Instructions(Page):
     def is_displayed(self):
         return self.round_number == 1
-        
+
     def vars_for_template(self):
         return {
             'treatment'     : str(self.participant.vars['treatment'])
@@ -31,15 +31,15 @@ class Step3(Page):
                 }
 
     def before_next_page(self):
+        # decision für mögliche spätere Auszahlung speichern
+        self.player.save_decision()
+        
         # aus der Liste der anzuzeigenden Snacks die 2 entfernen, die gerade angezeigt wurden
         self.player.delete_two_snacks()
 
     # Radio Buttons aus Player-Class von models.py
     form_model = models.Player
     form_fields = ['offer_1', 'offer_2', 'decision']
-
-    timeout_seconds = 20
-
 
 
 class Results(Page):

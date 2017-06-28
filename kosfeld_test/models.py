@@ -19,7 +19,8 @@ lets participant choose between 2 images the snack he/she prefers
 class Constants(BaseConstants):
     name_in_url = 'Step2'
     players_per_group = None
-    num_rounds = 4
+    #TO DO: ändern in tatsächliche Anzahl an Vergleichs-Runden
+    num_rounds = 1
     list_snacks = []
     for snack in os.listdir('_static//kosfeld_test'):
         if snack.endswith('.JPG'):
@@ -57,10 +58,17 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    def save_decision(self):
+        print(self.participant.vars['step2_decisions'])
+        self.participant.vars['step2_decisions'].append(self.decision)
+        print(self.participant.vars['step2_decisions'])
+
     def delete_two_snacks(self):
         if len(self.participant.vars["snacks_to_show"]) >= 2:
             self.participant.vars["snacks_to_show"].pop(0)
             self.participant.vars["snacks_to_show"].pop(0)
+
+
 
     def set_healthier_as_default(self, snack1, snack2):
         # TO DO: exception falls snack nicht in Liste ist (sollte eigentlich nicht passieren)
@@ -72,9 +80,9 @@ class Player(BasePlayer):
 
     #### DATA-fields
     # Kontrollfragen - dem Experimentator wird mit "HILFE" eine falsche Antwort signalisiert
-    control_4 = models.CharField(verbose_name="Kotrollfrage 4:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
-    control_5 = models.CharField(verbose_name="Kotrollfrage 5:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
-    control_6 = models.CharField(verbose_name="Kotrollfrage 6:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
+    #control_4 = models.CharField(verbose_name="Kotrollfrage 4:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
+    #control_5 = models.CharField(verbose_name="Kotrollfrage 5:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
+    #control_6 = models.CharField(verbose_name="Kotrollfrage 6:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
     # die zwei Snacks, zwischen denen sich der Teilnehmer entscheiden muss
     offer_1 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
     offer_2 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')

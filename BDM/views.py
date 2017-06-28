@@ -70,11 +70,9 @@ class End(Page):
 
 page_sequence = [
     Instructions,
-    TestRun,
-    TestRun,
-    TestRun,
-    Control,
-    WaitPage,
+#    TestRun,
+#    Control,
+#    WaitPage,
     BDM,
     End
 ]

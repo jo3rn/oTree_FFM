@@ -35,15 +35,9 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     def before_session_starts(self):
-        if self.round_number == 1:
-            for p in self.get_players():
-                # zufälliger Snack, der am Ende ausbezahlt werden könnte
-                p.participant.vars['random_snack'] = random.choice(Constants.list_snacks)
-                print(p.participant.vars['random_snack'])
+        pass
 
-                # Preis für den zufälligen Snack
-                p.participant.vars['random_price'] = random.randrange(0, 50)/10
-                print(p.participant.vars['random_price'])
+
 
 
 class Group(BaseGroup):
@@ -56,6 +50,13 @@ class Player(BasePlayer):
         '''
         self.participant.vars['num_snacks_Step4'].pop(0)
 
+    def fill_BDM_dict(self):
+        # nur notwendig für mögliche spätere Auszahlung
+        rated_snack = self.slider_value
+        # key: abgefragter Snack
+        # value: willingness-to-pay
+        self.participant.vars['WTPs_step_4'][Constants.list_snacks[self.participant.vars['num_snacks_Step4'][0]]] = self.slider_value
+
 
 
     #### DATA-fields:
@@ -64,6 +65,10 @@ class Player(BasePlayer):
     # welchen Snack der Teilnehmer gerade bewertet
     rated_snack = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
     # zufälliger Snack, den der Teilnehmer "gewinnen" kann
-    won_snack = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
-    # Preis des Snacks, sofern kleiner-gleich der Zahlungsbereitschaft
-    won_price = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    rand_snack = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # zufälliger Preis des Snacks
+    rand_price = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # ausgegebener Snack, falls WTP größer gleich zufälliger Preis
+    payout1 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # gesamte Geld-Auszahlung am Ende
+    payout2 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')

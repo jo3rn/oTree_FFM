@@ -19,7 +19,8 @@ lets participant again choose between 2 images the snack he/she prefers (without
 class Constants(BaseConstants):
     name_in_url = 'Step3'
     players_per_group = None
-    num_rounds = 4
+    # TO DO: Ändern in tatsächliche Anzahl an Vergleichsrunden
+    num_rounds = 1
     list_snacks = []
     for snack in os.listdir('_static//kosfeld_test'):
         if snack.endswith('.JPG'):
@@ -38,6 +39,11 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    def save_decision(self):
+        print(self.participant.vars['step3_decisions'])
+        self.participant.vars['step3_decisions'].append(self.decision)
+        print(self.participant.vars['step3_decisions'])
+
     def delete_two_snacks(self):
         if len(self.participant.vars["snacks_to_show_step3"]) >= 2:
             self.participant.vars["snacks_to_show_step3"].pop(0)
