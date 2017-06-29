@@ -12,9 +12,11 @@ class Instructions(Page):
 
 class TestRun(Page):
     def is_displayed(self):
+        # zeige Testlauf nur zu Beginn an
         return self.round_number == 1
 
     def vars_for_template(self):
+        # für den Testlauf wird ein Bild zufällig gewählt
         test_image = random.choice(Constants.list_snacks)
         return {
             'image_path': 'kosfeld_test/' + str(test_image) + '.JPG'
@@ -22,24 +24,28 @@ class TestRun(Page):
 
 class Control(Page):
     def is_displayed(self):
+        # zeige Kontrollfragen nur zu Beginn an
         return self.round_number == 1
 
+    # Eingabefelder für die Kontrollfragen
     form_model = models.Player
     form_fields = [ 'control_1', 'control_2', 'control_3', 'control_4',
                     'control_5', 'control_6', 'control_7']
+
 
 # class WaitPage(WaitPage):
 # WaitPage class wird nicht genommen, damit es beim letzten User nicht automatisch weiter geht.
 # Der Experimentator setzt mit "advanced slowest user" das Experiment fort
 class WaitPage(Page):
     def is_displayed(self):
+        # zeige Warteseite nur nach Kontrollfragen (zu Beginn) an
         return self.round_number == 1
-
-    title_text = "Bitte warten..."
-    body_text = "...bis alle Teilnehmer die Kontrollfragen beantwortet haben."
 
 class BDM(Page):
     def vars_for_template(self):
+        # image_path: Pfad zum Snack, der auf dieser Seite angezeit wird
+        # snack: Name des Snacks
+        # left: wieviele Snacks noch bewertet werden müssen
         return {
             'image_path': 'kosfeld_test/' + str(Constants.list_snacks[self.participant.vars['num_snacks'][0]]) + '.JPG',
             'snack'     : str(Constants.list_snacks[self.participant.vars['num_snacks'][0]]),
@@ -47,9 +53,13 @@ class BDM(Page):
         }
 
     def before_next_page(self):
+        # schreibe Zahlungsbereitschaft in BDM-Liste
         self.player.fill_BDM_dict()
+        # entferne bewerteten Snack aus der Liste der noch zu bewertenden Snacks
         self.player.unfill_snack_list()
 
+    # Feld für den Wert des Sliders
+    # Feld für den Namen des Snacks
     form_model = models.Player
     form_fields = ['slider_value', 'rated_snack']
 
@@ -70,9 +80,9 @@ class End(Page):
 
 page_sequence = [
     Instructions,
-#    TestRun,
-#    Control,
-#    WaitPage,
+    TestRun,
+    Control,
+    WaitPage,
     BDM,
     End
 ]

@@ -40,9 +40,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     def save_decision(self):
-        print(self.participant.vars['step3_decisions'])
         self.participant.vars['step3_decisions'].append(self.decision)
-        print(self.participant.vars['step3_decisions'])
 
     def delete_two_snacks(self):
         if len(self.participant.vars["snacks_to_show_step3"]) >= 2:

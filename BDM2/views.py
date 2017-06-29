@@ -15,7 +15,6 @@ class Instructions(Page):
 
             # Zufalls-Stufe, von der ausgewählt wird
             self.participant.vars['step'] = random.choice([1,2,3,4])
-            print(self.participant.vars['step'])
 
             if self.participant.vars['step'] in [1, 4]:
                 # zufälliger Snack, der am Ende ausbezahlt werden könnte
@@ -32,10 +31,6 @@ class Instructions(Page):
             # Preis für den zufälligen Snack
             self.participant.vars['random_price'] = random.randrange(0, 50)/10
 
-            print("Step2 und 3 decisions")
-            print(self.participant.vars['step2_decisions'])
-            print(self.participant.vars['step3_decisions'])
-            print(self.participant.vars['random_snack'])
 
 class BDM2(Page):
     def vars_for_template(self):
@@ -62,16 +57,15 @@ class End(Page):
         # PAYOFF LOGIK
         # bestimme Stufe, die für den Payoff genommen wird
         step_payoff = self.participant.vars['step']
-        minimumwage = 10
+        minimumwage = 8
         random_snack = self.participant.vars['random_snack']
 
         if step_payoff == 1 or step_payoff == 4:
-            payoff_with_snack = minimumwage - float(self.participant.vars['random_price'])
-            payoff_without_snack = minimumwage
+            payoff_with_snack = minimumwage + 5 - float(self.participant.vars['random_price'])
+            payoff_without_snack = minimumwage + 5
             if step_payoff == 1:
                 participant_WTP = float(self.participant.vars['BDM'][self.participant.vars['random_snack']])
             if step_payoff == 4:
-                #TO DO: Liste für Step 4 erstellen
                 participant_WTP = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack']])
 
         if step_payoff == 2 or step_payoff == 3:

@@ -45,7 +45,6 @@ class Subsession(BaseSubsession):
             treatments = itertools.cycle(['control', 'treatment_1', 'treatment_2'])
             for p in self.get_players():
                 p.participant.vars['treatment'] = next(treatments)
-                print(p.participant.vars['treatment'])
 
         # Fülle in Datenfeld, welchem Treatment der Teilnehmer zugeordnet ist
         for p in self.get_players():
@@ -59,9 +58,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     def save_decision(self):
-        print(self.participant.vars['step2_decisions'])
         self.participant.vars['step2_decisions'].append(self.decision)
-        print(self.participant.vars['step2_decisions'])
 
     def delete_two_snacks(self):
         if len(self.participant.vars["snacks_to_show"]) >= 2:

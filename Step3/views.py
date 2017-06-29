@@ -33,7 +33,7 @@ class Step3(Page):
     def before_next_page(self):
         # decision für mögliche spätere Auszahlung speichern
         self.player.save_decision()
-        
+
         # aus der Liste der anzuzeigenden Snacks die 2 entfernen, die gerade angezeigt wurden
         self.player.delete_two_snacks()
 

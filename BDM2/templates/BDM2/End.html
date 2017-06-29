@@ -2,11 +2,12 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Stufe 4: Ende
+    Stufe 4: Ende und Auszahlung
 {% endblock %}
 
 {% block content %}
 
+Die Basis-Vergütung für pünktliches Erscheinen beträgt 8 €. <br />
 Die für Sie zufällig ausgewählte Stufe ist Stufe {{step}}. <br />
 Der aus Stufe {{step}} zufällig gezogene Snack ist {{random_snack}}. <br />
 
@@ -19,26 +20,26 @@ Der aus Stufe {{step}} zufällig gezogene Snack ist {{random_snack}}. <br />
   Der zufällig generierte Preis dafür ist: {{random_price}} € <br />
   Ihre Zahlungsbereitschaft in Stufe 1 für diesen Snack war: {{participant_WTP}} € <br />
   {% if participant_WTP >= random_price %}
-    Der Snack wird Teil Ihrer Auszahlung. Ihre Auszahlung verringert sich dadurch um {{random_price}} €. <br />
-    Ihre Auszahlung beträgt {{payoff_with_snack}} €.
+    Der Snack wird Teil Ihrer Auszahlung. Ihr Budget von 5 € verringert sich dadurch um {{random_price}} €. <br />
+    Sie erhalten im Anschluss den zufällig gewählten Snack sowie insgesamt eine Auszahlung von {{payoff_with_snack}} €.
       <input type="hidden" name="payout1" value="{{random_snack}}" id="payout1"/>
       <input type="hidden" name="payout2" value="{{payoff_with_snack}}" id="payout2"/>
     {% else %}
       Der Snack wird nicht Teil Ihrer Auszahlung, da dessen Preis Ihre Zahlungsbereitschaft übersteigt. <br />
-      Ihre Auszahlung beträgt {{payoff_without_snack}} €.
+      Ihre Auszahlung beträgt daher insgesamt {{payoff_without_snack}} €.
       <input type="hidden" name="payout1" value="-" id="payout1"/>
       <input type="hidden" name="payout2" value="{{payoff_without_snack}}" id="payout2"/>
   {% endif %}
 {% endif %}
 
 {% if step = 2 %}
-  Sie erhalten den Snack sowie eine Auszahlung von {{payoff_with_snack}} €.
+  Sie erhalten damit insgesamt den Snack sowie eine Auszahlung von {{payoff_with_snack}} €.
   <input type="hidden" name="payout1" value="{{random_snack}}" id="payout1"/>
   <input type="hidden" name="payout2" value="{{payoff_with_snack}}" id="payout2"/>
 {% endif %}
 
 {% if step = 3 %}
-  Sie erhalten den Snack sowie eine Auszahlung von {{payoff_with_snack}} €.
+  Sie erhalten damit insgesamt den Snack sowie eine Auszahlung von {{payoff_with_snack}} €.
   <input type="hidden" name="payout1" value="{{random_snack}}" id="payout1"/>
   <input type="hidden" name="payout2" value="{{payoff_with_snack}}" id="payout2"/>
 {% endif %}
@@ -47,13 +48,13 @@ Der aus Stufe {{step}} zufällig gezogene Snack ist {{random_snack}}. <br />
   Der zufällig generierte Preis dafür ist: {{random_price}} € <br />
   Ihre Zahlungsbereitschaft in Stufe 4 für diesen Snack war: {{participant_WTP}} € <br />
   {% if participant_WTP >= random_price %}
-    Der Snack wird Teil Ihrer Auszahlung. Ihre Auszahlung verringert sich dadurch um {{random_price}} €. <br />
-    Ihre Auszahlung beträgt {{payoff_with_snack}} €.
+    Der Snack wird Teil Ihrer Auszahlung. Ihr Budget von 5 € verringert sich dadurch um {{random_price}} €. <br />
+    Sie erhalten im Anschluss den zufällig gewählten Snack sowie insgesamt  eine Auszahlung von {{payoff_with_snack}} €.
       <input type="hidden" name="payout1" value="{{random_snack}}" id="payout1"/>
       <input type="hidden" name="payout2" value="{{payoff_with_snack}}" id="payout2"/>
     {% else %}
       Der Snack wird nicht Teil Ihrer Auszahlung, da dessen Preis Ihre Zahlungsbereitschaft übersteigt. <br />
-      Ihre Auszahlung beträgt {{payoff_without_snack}} €.
+      Ihre Auszahlung beträgt daher insgesamt {{payoff_without_snack}} €.
       <input type="hidden" name="payout1" value="-" id="payout1"/>
       <input type="hidden" name="payout2" value="{{payoff_without_snack}}" id="payout2"/>
   {% endif %}
@@ -61,9 +62,8 @@ Der aus Stufe {{step}} zufällig gezogene Snack ist {{random_snack}}. <br />
 <br />
 <br />
 <br />
-<b>Wichtig:</b>
-Bitte klicken Sie weiter, um das Experiment zu beenden.
+<b>Wichtig:</b> Bitte klicken Sie weiter, um das Experiment zu beenden.<br />
+Wenn alle Teilnehmer das Experiment beendet haben, ruft der Experimentator Sie auf.<br />
 <br />
-
     {% next_button %}
 {% endblock %}

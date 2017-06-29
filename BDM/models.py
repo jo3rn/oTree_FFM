@@ -76,7 +76,6 @@ class Subsession(BaseSubsession):
             treatments = itertools.cycle(['control', 'treatment_1', 'treatment_2'])
             for p in self.get_players():
                 p.participant.vars['treatment'] = next(treatments)
-                print(p.participant.vars['treatment'])
 
         # Fülle in Datenfeld, welchem Treatment der Teilnehmer zugeordnet ist
         for p in self.get_players():
@@ -109,8 +108,6 @@ class Player(BasePlayer):
         sorted_BDM_tuples = sorted(self.participant.vars['BDM'].items(), key=itemgetter(1))
         # drehe Liste um, damit absteigend nach WTPs geordnet ist
         sorted_BDM_tuples.reverse()
-        print('-----------------------sorted_BDM_tuples-------------------------------')
-        print(sorted_BDM_tuples)
         BDM_length = len(sorted_BDM_tuples)
 
         # initialisiere Liste mit den geringsten WTP-Differenzen (wird in nachfolgender Schleife gefüllt)
@@ -142,9 +139,6 @@ class Player(BasePlayer):
         # speichere closest_WTP-Liste global in Teilnehmer-Variablen
         self.participant.vars['closest_WTPs'] = closest_WTPs
 
-        print("-----------------------closest WTPs-------------------------------")
-        print(self.participant.vars['closest_WTPs'])
-
         # Liste mit Snacks aus closest WTPs, um später davon die Pfade zu den Bildern zu bestimmen
         snacks_to_show = []
         for i in closest_WTPs:
@@ -153,12 +147,8 @@ class Player(BasePlayer):
 
         self.participant.vars["snacks_to_show"] = snacks_to_show
 
-        print("-----------------------snacks_to_show-------------------------------")
-        print(snacks_to_show)
-
         # ordne Snacks neu (zufällig) für Step 3:
         snacks_to_show_3 = list(set(snacks_to_show))
-        print(snacks_to_show_3)
         random.shuffle(snacks_to_show_3)
         while len(snacks_to_show_3) < len(snacks_to_show):
             random_snack = random.choice(snacks_to_show_3)
@@ -166,8 +156,6 @@ class Player(BasePlayer):
                 snacks_to_show_3.append(random_snack)
 
         self.participant.vars["snacks_to_show_step3"] = snacks_to_show_3
-        print("-----------------------snacks_Step_3-------------------------------")
-        print(snacks_to_show_3)
 
 
 
