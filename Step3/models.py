@@ -20,7 +20,7 @@ class Constants(BaseConstants):
     name_in_url = 'Step3'
     players_per_group = None
     # TO DO: Ändern in tatsächliche Anzahl an Vergleichsrunden
-    num_rounds = 1
+    num_rounds = 100
     list_snacks = []
     for snack in os.listdir('_static//kosfeld_test'):
         if snack.endswith('.JPG'):
