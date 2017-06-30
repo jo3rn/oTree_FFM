@@ -19,7 +19,6 @@ lets participant choose between 2 images the snack he/she prefers
 class Constants(BaseConstants):
     name_in_url = 'Step2'
     players_per_group = None
-    #TO DO: ändern in tatsächliche Anzahl an Vergleichs-Runden
     num_rounds = 100
     list_snacks = []
     for snack in os.listdir('_static//kosfeld_test'):
