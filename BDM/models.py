@@ -110,6 +110,7 @@ class Player(BasePlayer):
         sorted_BDM_tuples.reverse()
         BDM_length = len(sorted_BDM_tuples)
 
+
         # initialisiere Liste mit den geringsten WTP-Differenzen (wird in nachfolgender Schleife gefüllt)
         closest_WTPs = []
 
@@ -123,14 +124,14 @@ class Player(BasePlayer):
                 while i < BDM_length:
                     WTP_difference = round(float(element[1])-float(sorted_BDM_tuples[i][1]), 1)
                     # wenn closest_WTP-Liste noch nicht voll ODER die gerade ermittelte WTP-Differenz niedriger als das Maximum der bereits vorhandenen WTP-Differenzen
-                    if len(closest_WTPs) < Constants.num_rounds or max(closest_WTPs, key=itemgetter(2))[2] > WTP_difference:
+                    if len(closest_WTPs) < (Constants.num_rounds*2+1) or max(closest_WTPs, key=itemgetter(2))[2] > WTP_difference:
                         next_element = sorted_BDM_tuples[i][0]
                         i += 1
                         # füge Triple (Snack1, Snack2, WTP-Differenz zwischen Snack1 und Snack2) zu closest_WTP-Liste hinzu
                         closest_WTPs.append((element[0], next_element, WTP_difference))
 
                         # wenn closest_WTP-Liste voll: entferne größte WTP-Differenz
-                        if len(closest_WTPs) > Constants.num_rounds:
+                        if len(closest_WTPs) > (Constants.num_rounds*2+1):
                             closest_WTPs.remove(max(closest_WTPs, key=itemgetter(2)))
                     else:
                         break
@@ -147,6 +148,7 @@ class Player(BasePlayer):
 
         self.participant.vars["snacks_to_show"] = snacks_to_show
 
+
         # ordne Snacks neu (zufällig) für Step 3:
         snacks_to_show_3 = list(set(snacks_to_show))
         random.shuffle(snacks_to_show_3)
@@ -156,6 +158,7 @@ class Player(BasePlayer):
                 snacks_to_show_3.append(random_snack)
 
         self.participant.vars["snacks_to_show_step3"] = snacks_to_show_3
+
 
 
 

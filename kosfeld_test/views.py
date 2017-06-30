@@ -42,7 +42,7 @@ class Step2(Page):
         # damit nicht immer der erste (=bessere) Snack default ist
         zero_one = [0, 1]
         random.shuffle(zero_one)
-        snack1 = self.participant.vars["snacks_to_show"][zero_one[0]]
+        snack1 = self.participant.vars["snacks_to_show"][zero_one[0]] # TO DO: check list index out of range!!
         snack2 = self.participant.vars["snacks_to_show"][zero_one[1]]
 
         ### Fallunterscheidung basierend auf der zugehörigen Treatment-Gruppierung des Teilnehmers:
