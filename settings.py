@@ -14,12 +14,15 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
     DEBUG = False
 else:
-    DEBUG = True
-
+#    DEBUG = True
+	DEBUG = False # wieder löschen wenn Umgebungsvariable gesetzt					!!!!!!!!!!!!!!!
+	
 ADMIN_USERNAME = 'admin'
 
 # for security, best to set admin password in an environment variable
-ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
+# ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
+ADMIN_PASSWORD = '4ot_PW' # wieder löschen wenn Umgebungsvariable gesetzt 			!!!!!!!!!!!!!!!
+
 
 
 # don't share this with anybody.
@@ -46,8 +49,8 @@ DATABASES = {
 # to DEMO. This will allow people to play in demo mode, but not access
 # the full admin interface.
 
-AUTH_LEVEL = environ.get('OTREE_AUTH_LEVEL')
-
+# AUTH_LEVEL = environ.get('OTREE_AUTH_LEVEL')
+AUTH_LEVEL = 'STUDY' # wieder löschen wenn Umgebungsvariable gesetzt			!!!!!!!!!!!!!!!
 
 # setting for integration with AWS Mturk
 AWS_ACCESS_KEY_ID = environ.get('AWS_ACCESS_KEY_ID')
