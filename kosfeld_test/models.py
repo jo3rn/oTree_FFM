@@ -37,19 +37,10 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     def before_session_starts(self):
-        pass
-        '''
-        # Weise einmalig Teilnehmer abwechselnd einem bestimmten Treatment zu
-        if self.round_number == 1:
-            treatments = itertools.cycle(['control', 'treatment_1', 'treatment_2'])
-            for p in self.get_players():
-                p.participant.vars['treatment'] = next(treatments)
-
-        # Fülle in Datenfeld, welchem Treatment der Teilnehmer zugeordnet ist
         for p in self.get_players():
-            p.treatment = p.participant.vars['treatment']
+            if 'decision_count' not in p.participant.vars:
+                p.participant.vars['decision_count'] = 1
 
-'''
 
 class Group(BaseGroup):
     pass
@@ -64,6 +55,11 @@ class Player(BasePlayer):
             self.participant.vars["snacks_to_show"].pop(0)
             self.participant.vars["snacks_to_show"].pop(0)
 
+    def count_decisions(self):
+        self.participant.vars['decision_count'] += 1
+
+    def reset_decision_count(self):
+        self.participant.vars['decision_count'] = 1
 
 
     def set_healthier_as_default(self, snack1, snack2):
@@ -72,6 +68,7 @@ class Player(BasePlayer):
             return 'checked="checked"'
         else:
             return ''
+
 
 
     #### DATA-fields

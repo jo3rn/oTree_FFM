@@ -118,6 +118,18 @@ input[type=range]:focus::-ms-fill-upper {
   background: #66a1d4;
 }
 
+.rangelabelleft {
+    float: left;
+}
+
+.rangelabelright {
+    float:right;
+    text-align: right;
+}
+
+.nextbutton {
+    text-align: center;
+}
 
 </style>
 {% endblock %}
@@ -147,7 +159,10 @@ http://getbootstrap.com/components/
 
 <br />
 <br />
-
+<div>
+    <div class="rangelabelleft">0 €</div>
+    <div class="rangelabelright">5 €</div>
+</div>
  <form>
  	<input name="slider_value" id="wtp" type="range" min="0"
  	value="0" max="5" step="0.1" oninput="showWTP(this.value)">
@@ -162,6 +177,9 @@ http://getbootstrap.com/components/
 {{ left }} von {{ Constants.num_snacks }} Snacks bewertet
 <br />
 <br />
-
+<div>
+  <div class="nextbutton">
     {% next_button %}
+  </div>
+</div>
 {% endblock %}

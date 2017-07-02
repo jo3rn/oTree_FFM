@@ -98,7 +98,10 @@ class Player(BasePlayer):
         rated_snack = self.slider_value
         # key: abgefragter Snack
         # value: willingness-to-pay
-        self.participant.vars['BDM'][Constants.list_snacks[self.participant.vars['num_snacks'][0]]] = self.slider_value
+        if self.slider_value is not int:
+            self.participant.vars['BDM'][Constants.list_snacks[self.participant.vars['num_snacks'][0]]] = 0
+        else:
+            self.participant.vars['BDM'][Constants.list_snacks[self.participant.vars['num_snacks'][0]]] = self.slider_value
 
 
     def sort_WTPs(self):

@@ -27,7 +27,8 @@ class Step3(Page):
                 'snack2': snack2,
                 # html-tags der radio buttons
                 'image1': '<input name="decision" type="radio" id="s1" value="' + snack1 + '"' + '/>',
-                'image2': '<input name="decision" type="radio" id="s2" value="' + snack2 + '"' + '/>'
+                'image2': '<input name="decision" type="radio" id="s2" value="' + snack2 + '"' + '/>',
+                'decisionno': self.participant.vars['decision_count']
                 }
 
     def before_next_page(self):
@@ -36,6 +37,9 @@ class Step3(Page):
 
         # aus der Liste der anzuzeigenden Snacks die 2 entfernen, die gerade angezeigt wurden
         self.player.delete_two_snacks()
+
+        # Entscheidungsnummer 1 raufsetzen
+        self.player.count_decisions()
 
     # Radio Buttons aus Player-Class von models.py
     form_model = models.Player

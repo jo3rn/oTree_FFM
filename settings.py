@@ -15,7 +15,7 @@ if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
     DEBUG = False
 else:
 #    DEBUG = True
-	DEBUG = False # wieder löschen wenn Umgebungsvariable gesetzt					!!!!!!!!!!!!!!!
+	DEBUG = True # wieder löschen wenn Umgebungsvariable gesetzt					!!!!!!!!!!!!!!!
 	
 ADMIN_USERNAME = 'admin'
 

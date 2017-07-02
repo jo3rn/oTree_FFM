@@ -42,6 +42,9 @@ label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
   border:8px solid #0f0;
 }
 
+.nextbutton {
+    text-align: center;
+}
 </style>
 {% endblock %}
 
@@ -83,7 +86,11 @@ http://getbootstrap.com/components/
 <br />
 {{ form.errors }}
 <br />
-
+Entscheidung {{ decisionno }} von {{ Constants.num_rounds }}
+<div>
+  <div class="nextbutton">
     {% next_button %}
+  </div>
+</div>
 
 {% endblock %}

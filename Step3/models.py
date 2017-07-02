@@ -47,6 +47,9 @@ class Player(BasePlayer):
             self.participant.vars["snacks_to_show_step3"].pop(0)
             self.participant.vars["snacks_to_show_step3"].pop(0)
 
+    def count_decisions(self):
+        self.participant.vars['decision_count'] += 1
+
 
     #### DATA-fields
     # die zwei Snacks, zwischen denen sich der Teilnehmer entscheiden muss

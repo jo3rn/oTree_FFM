@@ -57,7 +57,7 @@ class End(Page):
         # PAYOFF LOGIK
         # bestimme Stufe, die für den Payoff genommen wird
         step_payoff = self.participant.vars['step']
-        minimumwage = 8
+        minimumwage = 10
         random_snack = self.participant.vars['random_snack']
 
         if step_payoff == 1 or step_payoff == 4:
