@@ -129,6 +129,9 @@ input[type=range]:focus::-ms-fill-upper {
     text-align: right;
 }
 
+.nextbutton {
+    text-align: center;
+}
 
 </style>
 {% endblock %}
@@ -181,6 +184,9 @@ Eingaben auf dieser Seite sind nicht Teil des Experiments.
 <br />
 <br />
 <br />
-
+<div>
+  <div class="nextbutton">
     {% next_button %}
+  </div>
+</div>
 {% endblock %}
