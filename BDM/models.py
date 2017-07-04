@@ -145,6 +145,8 @@ class Player(BasePlayer):
 
         # Liste mit Snacks aus closest WTPs, um später davon die Pfade zu den Bildern zu bestimmen
         snacks_to_show = []
+        # zufällige Reihenfolge, um dem überproportionalen Erscheinen eines bestimmten Guts entgegenzuwirken
+        random.shuffle(closest_WTPs)
         for i in closest_WTPs:
             snacks_to_show.append(i[0])
             snacks_to_show.append(i[1])

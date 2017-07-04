@@ -19,14 +19,26 @@ class Instructions(Page):
             if self.participant.vars['step'] in [1, 4]:
                 # zufälliger Snack, der am Ende ausbezahlt werden könnte
                 self.participant.vars['random_snack'] = random.choice(Constants.list_snacks)
+                self.participant.vars['random_snack2'] = random.choice(Constants.list_snacks)
+                self.participant.vars['random_snack3'] = random.choice(Constants.list_snacks)
+                self.participant.vars['random_snack4'] = random.choice(Constants.list_snacks)
+                self.participant.vars['random_snack5'] = random.choice(Constants.list_snacks)
 
             if self.participant.vars['step'] == 2:
                 # zufälliger Snack, der am Ende ausbezahlt wird
                 self.participant.vars['random_snack'] = random.choice(self.participant.vars['step2_decisions'])
+                self.participant.vars['random_snack2'] = random.choice(self.participant.vars['step2_decisions'])
+                self.participant.vars['random_snack3'] = random.choice(self.participant.vars['step2_decisions'])
+                self.participant.vars['random_snack4'] = random.choice(self.participant.vars['step2_decisions'])
+                self.participant.vars['random_snack5'] = random.choice(self.participant.vars['step2_decisions'])
 
             if self.participant.vars['step'] == 3:
                 # zufälliger Snack, der am Ende ausbezahlt wird
                 self.participant.vars['random_snack'] = random.choice(self.participant.vars['step3_decisions'])
+                self.participant.vars['random_snack2'] = random.choice(self.participant.vars['step3_decisions'])
+                self.participant.vars['random_snack3'] = random.choice(self.participant.vars['step3_decisions'])
+                self.participant.vars['random_snack4'] = random.choice(self.participant.vars['step3_decisions'])
+                self.participant.vars['random_snack5'] = random.choice(self.participant.vars['step3_decisions'])
 
             # Preis für den zufälligen Snack
             self.participant.vars['random_price'] = random.randrange(0, 50)/10
@@ -47,7 +59,12 @@ class BDM2(Page):
     form_model = models.Player
     form_fields = ['slider_value', 'rated_snack']
 
+
 class End(Page):
+    pass
+
+
+class Lastpage(Page):
     def is_displayed(self):
         # zeige End-Seite nur nach der letzten Runde an
         return self.round_number == Constants.num_rounds
@@ -59,14 +76,26 @@ class End(Page):
         step_payoff = self.participant.vars['step']
         minimumwage = 10
         random_snack = self.participant.vars['random_snack']
+        random_snack2 = self.participant.vars['random_snack2']
+        random_snack3 = self.participant.vars['random_snack3']
+        random_snack4 = self.participant.vars['random_snack4']
+        random_snack5 = self.participant.vars['random_snack5']
 
         if step_payoff == 1 or step_payoff == 4:
             payoff_with_snack = minimumwage + 5 - float(self.participant.vars['random_price'])
             payoff_without_snack = minimumwage + 5
             if step_payoff == 1:
                 participant_WTP = float(self.participant.vars['BDM'][self.participant.vars['random_snack']])
+                participant_WTP2 = float(self.participant.vars['BDM'][self.participant.vars['random_snack2']])
+                participant_WTP3 = float(self.participant.vars['BDM'][self.participant.vars['random_snack3']])
+                participant_WTP4 = float(self.participant.vars['BDM'][self.participant.vars['random_snack4']])
+                participant_WTP5 = float(self.participant.vars['BDM'][self.participant.vars['random_snack5']])
             if step_payoff == 4:
                 participant_WTP = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack']])
+                participant_WTP2 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack2']])
+                participant_WTP3 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack3']])
+                participant_WTP4 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack4']])
+                participant_WTP5 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack5']])
 
         if step_payoff == 2 or step_payoff == 3:
             payoff_with_snack = minimumwage
@@ -77,19 +106,28 @@ class End(Page):
         return {
             'step': step_payoff,
             'random_snack': random_snack,
+            'random_snack2': random_snack2,
+            'random_snack3': random_snack3,
+            'random_snack4': random_snack4,
+            'random_snack5': random_snack5,
             'random_price': float(self.participant.vars['random_price']),
             'participant_WTP': participant_WTP,
+            'participant_WTP2': participant_WTP2,
+            'participant_WTP3': participant_WTP3,
+            'participant_WTP4': participant_WTP4,
+            'participant_WTP5': participant_WTP5,
             'payoff_with_snack': payoff_with_snack,
             'payoff_without_snack': payoff_without_snack
         }
 
     form_model = models.Player
-    form_fields = ['rand_snack', 'rand_price', 'payout1', 'payout2']
+    form_fields = [ 'rand_snack', 'rand_price', 'payout1', 'payout2', 'payout3',
+                    'payout4', 'payout5', 'payout6', 'payout7', 'payout8', 'payout9', 'payout10']
 
 
 
 page_sequence = [
     Instructions,
     BDM2,
-    End
+    Lastpage
 ]

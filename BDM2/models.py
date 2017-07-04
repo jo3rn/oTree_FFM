@@ -72,3 +72,19 @@ class Player(BasePlayer):
     payout1 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
     # gesamte Geld-Auszahlung am Ende
     payout2 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # ausgegebener Snack, falls WTP größer gleich zufälliger Preis
+    payout3 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # gesamte Geld-Auszahlung am Ende
+    payout4 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # ausgegebener Snack, falls WTP größer gleich zufälliger Preis
+    payout5 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # gesamte Geld-Auszahlung am Ende
+    payout6 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # ausgegebener Snack, falls WTP größer gleich zufälliger Preis
+    payout7 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # gesamte Geld-Auszahlung am Ende
+    payout8 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # ausgegebener Snack, falls WTP größer gleich zufälliger Preis
+    payout9 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # gesamte Geld-Auszahlung am Ende
+    payout10 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
