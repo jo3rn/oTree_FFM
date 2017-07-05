@@ -73,7 +73,8 @@ class Step2(Page):
                 # html-tags der radio buttons
                 'image1': '<input name="decision" type="radio" id="s1" value="' + snack1 + '"' + dependency1 + '/>',
                 'image2': '<input name="decision" type="radio" id="s2" value="' + snack2 + '"' + dependency2 + '/>',
-                'decisionno': self.participant.vars['decision_count']
+                'decisionno': self.participant.vars['decision_count'],
+                'treatment' : str(self.participant.vars['treatment'])
                 }
 
     def before_next_page(self):
@@ -88,7 +89,7 @@ class Step2(Page):
 
     # Radio Buttons aus Player-Class von models.py
     form_model = models.Player
-    form_fields = ['offer_1', 'offer_2', 'decision']
+    form_fields = ['offer_1', 'offer_2', 'decision', 'treatment']
 
 
 
