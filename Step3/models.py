@@ -57,3 +57,5 @@ class Player(BasePlayer):
     offer_2 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
     # der Snack, für den sich der Teilnehmer entscheidet
     decision = models.CharField()
+    # Treatment-Gruppe des Teilnehmers
+    treatment = models.CharField()
