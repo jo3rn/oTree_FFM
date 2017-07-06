@@ -101,6 +101,10 @@ class Lastpage(Page):
             payoff_with_snack = minimumwage
             payoff_without_snack = minimumwage
             participant_WTP = "-"
+            participant_WTP2 = "-"
+            participant_WTP3 = "-"
+            participant_WTP4 = "-"
+            participant_WTP5 = "-"
 
 
         return {
