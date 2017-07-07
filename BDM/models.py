@@ -51,6 +51,7 @@ class Subsession(BaseSubsession):
                     # Liste für Step 1
                     p.participant.vars['num_snacks'] = (list(range(Constants.num_snacks)))
                     random.shuffle(p.participant.vars['num_snacks'])
+                if 'num_snacks_Step4' not in p.participant.vars:
                     # Liste für Step 4
                     p.participant.vars['num_snacks_Step4'] = (list(range(Constants.num_snacks)))
                     random.shuffle(p.participant.vars['num_snacks_Step4'])
@@ -69,6 +70,7 @@ class Subsession(BaseSubsession):
             for p in self.get_players():
                 if 'BDM' not in p.participant.vars:
                     p.participant.vars['BDM'] = {}
+                if 'WTPs_step_4' not in p.participant.vars:
                     p.participant.vars['WTPs_step_4'] = {}
 
         # Weise einmalig Teilnehmer abwechselnd einem bestimmten Treatment zu
@@ -98,10 +100,13 @@ class Player(BasePlayer):
         rated_snack = self.slider_value
         # key: abgefragter Snack
         # value: willingness-to-pay
-        if self.slider_value is not int:
-            self.participant.vars['BDM'][Constants.list_snacks[self.participant.vars['num_snacks'][0]]] = 0
+        if self.slider_value == "":
+            self.participant.vars['BDM'][Constants.list_snacks[self.participant.vars['num_snacks'][0]]] = '0'
         else:
             self.participant.vars['BDM'][Constants.list_snacks[self.participant.vars['num_snacks'][0]]] = self.slider_value
+
+        print("################## WTPs Step 1")
+        print(self.participant.vars['BDM'])
 
 
     def sort_WTPs(self):
