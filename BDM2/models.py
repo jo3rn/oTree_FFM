@@ -55,8 +55,10 @@ class Player(BasePlayer):
         rated_snack = self.slider_value
         # key: abgefragter Snack
         # value: willingness-to-pay
-        self.participant.vars['WTPs_step_4'][Constants.list_snacks[self.participant.vars['num_snacks_Step4'][0]]] = self.slider_value
-
+        if self.slider_value == "":
+            self.participant.vars['WTPs_step_4'][Constants.list_snacks[self.participant.vars['num_snacks_Step4'][0]]] = '0'
+        else:
+            self.participant.vars['WTPs_step_4'][Constants.list_snacks[self.participant.vars['num_snacks_Step4'][0]]] = self.slider_value
 
 
     #### DATA-fields:
