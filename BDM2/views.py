@@ -85,17 +85,36 @@ class Lastpage(Page):
             payoff_with_snack = minimumwage + 5 - float(self.participant.vars['random_price'])
             payoff_without_snack = minimumwage + 5
             if step_payoff == 1:
-                participant_WTP = float(self.participant.vars['BDM'][self.participant.vars['random_snack']])
-                participant_WTP2 = float(self.participant.vars['BDM'][self.participant.vars['random_snack2']])
-                participant_WTP3 = float(self.participant.vars['BDM'][self.participant.vars['random_snack3']])
-                participant_WTP4 = float(self.participant.vars['BDM'][self.participant.vars['random_snack4']])
-                participant_WTP5 = float(self.participant.vars['BDM'][self.participant.vars['random_snack5']])
+                # this is to avoid a non-repeatable key error in a pilot session
+                try:
+                    participant_WTP = float(self.participant.vars['BDM'][self.participant.vars['random_snack']])
+                    participant_WTP2 = float(self.participant.vars['BDM'][self.participant.vars['random_snack2']])
+                    participant_WTP3 = float(self.participant.vars['BDM'][self.participant.vars['random_snack3']])
+                    participant_WTP4 = float(self.participant.vars['BDM'][self.participant.vars['random_snack4']])
+                    participant_WTP5 = float(self.participant.vars['BDM'][self.participant.vars['random_snack5']])
+                except KeyError:
+                    print("########### A KeyError has occured for Step 1!")
+                    participant_WTP = 0
+                    participant_WTP2 = 0
+                    participant_WTP3 = 0
+                    participant_WTP4 = 0
+                    participant_WTP5 = 0
             if step_payoff == 4:
-                participant_WTP = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack']])
-                participant_WTP2 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack2']])
-                participant_WTP3 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack3']])
-                participant_WTP4 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack4']])
-                participant_WTP5 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack5']])
+                # this is to avoid a non-repeatable key error in a pilot session
+                try:
+                    participant_WTP = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack']])
+                    participant_WTP2 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack2']])
+                    participant_WTP3 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack3']])
+                    participant_WTP4 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack4']])
+                    participant_WTP5 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack5']])
+                except KeyError:
+                    print("########### A KeyError has occured for Step 4!")
+                    participant_WTP = 0
+                    participant_WTP2 = 0
+                    participant_WTP3 = 0
+                    participant_WTP4 = 0
+                    participant_WTP5 = 0
+
 
         if step_payoff == 2 or step_payoff == 3:
             payoff_with_snack = minimumwage
