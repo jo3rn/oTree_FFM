@@ -105,9 +105,6 @@ class Player(BasePlayer):
         else:
             self.participant.vars['BDM'][Constants.list_snacks[self.participant.vars['num_snacks'][0]]] = self.slider_value
 
-        print("################## WTPs Step 1")
-        print(self.participant.vars['BDM'])
-
 
     def sort_WTPs(self):
         '''Differenzen der WTPs minimal halten
