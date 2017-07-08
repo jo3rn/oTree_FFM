@@ -168,9 +168,9 @@ class Player(BasePlayer):
 
 
 
-
     #### DATA-fields:
     # Kontrollfragen - dem Experimentator wird mit "HILFE" eine falsche Antwort signalisiert
+    ''' auskommentiert: Kontrollfragen werden stattdessen händisch gemacht
     control_1 = models.CharField(verbose_name="Welche Ihrer Entscheidungen sind für Ihre Auszahlung relevant?",
     choices=[   ['HILFE', 'Jede Entscheidung zählt.'],
                 ['HILFE', 'Eine der Entscheidungen in Stufe 1 wird zufällig zur Auszahlung ausgewählt.'],
@@ -182,6 +182,9 @@ class Player(BasePlayer):
     control_5 = models.CharField(verbose_name="Indem ich eine niedrigere Zahlungsbereitschaft angebe, kann ich einen niedrigeren Preis erhalten, als wenn ich meine wahre Zahlungsbereitschaft angeben würde.", choices=[['HILFE', 'korrekt'], ['ok', 'nicht korrekt']], widget=widgets.RadioSelect())
     control_6 = models.CharField(verbose_name="Indem ich eine niedrigere Zahlungsbereitschaft angebe, kann ich nicht beeinflussen, welchen Preis ich zahle wenn ich das Gut kaufe, da der Preis zufällig bestimmt wird. Ich zahle diesen zufällig gezogenen Preis nur, falls er nicht höher als meine Zahlungsbereitschaft ist.", choices=[['ok', 'korrekt'], ['HILFE', 'nicht korrekt']], widget=widgets.RadioSelect())
     control_7 = models.CharField(verbose_name="Indem ich eine niedrigere Zahlungsbereitschaft angebe, kann es passieren, dass der zufällig gezogene Preis oberhalb dieser angegebenen, aber unterhalb meiner tatsächlichen Zahlungsbereitschaft liegt. Ich würde dann das Gut nicht bekommen, obwohl ich es zu einem Preis hätte kaufen können, der unter meiner tatsächlichen Zahlungsbereitschaft liegt.", choices=[['ok', 'korrekt'], ['HILFE', 'nicht korrekt']], widget=widgets.RadioSelect())
+    '''
+    # Label des PCs
+    p_label = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
     # was der Teilnehmer mit dem Schieberegler wählt
     slider_value = models.CharField(widget=widgets.SliderInput())
     # welchen Snack der Teilnehmer gerade bewertet

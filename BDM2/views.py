@@ -60,10 +60,6 @@ class BDM2(Page):
     form_fields = ['slider_value', 'rated_snack']
 
 
-class End(Page):
-    pass
-
-
 class Lastpage(Page):
     def is_displayed(self):
         # zeige End-Seite nur nach der letzten Runde an
@@ -85,34 +81,58 @@ class Lastpage(Page):
             payoff_with_snack = minimumwage + 5 - float(self.participant.vars['random_price'])
             payoff_without_snack = minimumwage + 5
             if step_payoff == 1:
-                # this is to avoid a non-repeatable key error in a pilot session
+                # this is to avoid a non-repeatable key error that occured in a pilot session
                 try:
                     participant_WTP = float(self.participant.vars['BDM'][self.participant.vars['random_snack']])
+                except KeyError:
+                    print("########### A KeyError has occured for snack1 Step 1!")
+                    participant_WTP = 0
+                try:
                     participant_WTP2 = float(self.participant.vars['BDM'][self.participant.vars['random_snack2']])
+                except KeyError:
+                    print("########### A KeyError has occured for snack2 Step 1!")
+                    participant_WTP2 = 0
+                try:
                     participant_WTP3 = float(self.participant.vars['BDM'][self.participant.vars['random_snack3']])
+                except KeyError:
+                    print("########### A KeyError has occured for snack3 Step 1!")
+                    participant_WTP3 = 0
+                try:
                     participant_WTP4 = float(self.participant.vars['BDM'][self.participant.vars['random_snack4']])
+                except KeyError:
+                    print("########### A KeyError has occured for snack4 Step 1!")
+                    participant_WTP4 = 0
+                try:
                     participant_WTP5 = float(self.participant.vars['BDM'][self.participant.vars['random_snack5']])
                 except KeyError:
-                    print("########### A KeyError has occured for Step 1!")
-                    participant_WTP = 0
-                    participant_WTP2 = 0
-                    participant_WTP3 = 0
-                    participant_WTP4 = 0
+                    print("########### A KeyError has occured for snack5 Step 1!")
                     participant_WTP5 = 0
             if step_payoff == 4:
                 # this is to avoid a non-repeatable key error in a pilot session
                 try:
                     participant_WTP = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack']])
+                except KeyError:
+                    print("########### A KeyError has occured for snack1 Step 4!")
+                    participant_WTP = 0
+                try:
                     participant_WTP2 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack2']])
+                except KeyError:
+                    print("########### A KeyError has occured for snack2 Step 4!")
+                    participant_WTP2 = 0
+                try:
                     participant_WTP3 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack3']])
+                except KeyError:
+                    print("########### A KeyError has occured for snack3 Step 4!")
+                    participant_WTP3 = 0
+                try:
                     participant_WTP4 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack4']])
+                except KeyError:
+                    print("########### A KeyError has occured for snack4 Step 4!")
+                    participant_WT4 = 0
+                try:
                     participant_WTP5 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack5']])
                 except KeyError:
-                    print("########### A KeyError has occured for Step 4!")
-                    participant_WTP = 0
-                    participant_WTP2 = 0
-                    participant_WTP3 = 0
-                    participant_WTP4 = 0
+                    print("########### A KeyError has occured for snack5 Step 4!")
                     participant_WTP5 = 0
 
 
@@ -127,24 +147,25 @@ class Lastpage(Page):
 
 
         return {
-            'step': step_payoff,
-            'random_snack': random_snack,
-            'random_snack2': random_snack2,
-            'random_snack3': random_snack3,
-            'random_snack4': random_snack4,
-            'random_snack5': random_snack5,
-            'random_price': float(self.participant.vars['random_price']),
-            'participant_WTP': participant_WTP,
-            'participant_WTP2': participant_WTP2,
-            'participant_WTP3': participant_WTP3,
-            'participant_WTP4': participant_WTP4,
-            'participant_WTP5': participant_WTP5,
-            'payoff_with_snack': payoff_with_snack,
+            'p_label'           : self.participant.label,
+            'step'              : step_payoff,
+            'random_snack'      : random_snack,
+            'random_snack2'     : random_snack2,
+            'random_snack3'     : random_snack3,
+            'random_snack4'     : random_snack4,
+            'random_snack5'     : random_snack5,
+            'random_price'      : float(self.participant.vars['random_price']),
+            'participant_WTP'   : participant_WTP,
+            'participant_WTP2'  : participant_WTP2,
+            'participant_WTP3'  : participant_WTP3,
+            'participant_WTP4'  : participant_WTP4,
+            'participant_WTP5'  : participant_WTP5,
+            'payoff_with_snack' : payoff_with_snack,
             'payoff_without_snack': payoff_without_snack
         }
 
     form_model = models.Player
-    form_fields = [ 'rand_snack', 'rand_price', 'payout1', 'payout2', 'payout3',
+    form_fields = [ 'rand_snack', 'rand_price', 'p_label', 'payout1', 'payout2', 'payout3',
                     'payout4', 'payout5', 'payout6', 'payout7', 'payout8', 'payout9', 'payout10']
 
 

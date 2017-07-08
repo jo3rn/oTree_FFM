@@ -70,6 +70,8 @@ class Player(BasePlayer):
     rand_snack = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
     # zufälliger Preis des Snacks
     rand_price = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # Label des PCs
+    p_label = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
     # ausgegebener Snack, falls WTP größer gleich zufälliger Preis
     payout1 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
     # gesamte Geld-Auszahlung am Ende

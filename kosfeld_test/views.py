@@ -4,6 +4,7 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 import random
 
+'''kein Testrun an dieser Stelle
 class TestRun2(Page):
     def is_displayed(self):
         return self.round_number == 1
@@ -28,13 +29,16 @@ class TestRun2(Page):
                 'image1': '<input name="decision" type="radio" id="s1" value="' + snack1 + '"' + dependency1 + '/>',
                 'image2': '<input name="decision" type="radio" id="s2" value="' + snack2 + '"' + dependency2 + '/>'
                 }
+'''
 
+''' keine Kontrollfragen an dieser Stelle
 class Control2(Page):
     def is_displayed(self):
         return self.round_number == 1
 
     form_model = models.Player
     form_fields = ['control_4', 'control_5', 'control_6']
+'''
 
 class Step2(Page):
     def vars_for_template(self):
@@ -91,7 +95,12 @@ class Step2(Page):
     form_model = models.Player
     form_fields = ['offer_1', 'offer_2', 'decision', 'treatment']
 
-
+class WaitPage(WaitPage):
+    def is_displayed(self):
+        # zeige Warte-Seite nur nach der letzten Runde an
+        return self.round_number == Constants.num_rounds
+    title_text = "Bitte warten."
+    body_text = "Es geht weiter, wenn alle Teilnehmer diese Stufe erreicht haben."
 
 class Results(Page):
     def is_displayed(self):
@@ -104,10 +113,7 @@ class Results(Page):
 
 
 page_sequence = [
-#    TestRun2,
-#    TestRun2,
-#    TestRun2,
-#    Control2,
     Step2,
+    WaitPage,
     Results
 ]

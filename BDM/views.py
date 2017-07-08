@@ -22,6 +22,8 @@ class TestRun(Page):
             'image_path': 'kosfeld_test/' + str(test_image) + '.JPG'
         }
 
+'''
+auskommentiert: Kontrollfragen werden händisch gemacht
 class Control(Page):
     def is_displayed(self):
         # zeige Kontrollfragen nur zu Beginn an
@@ -31,14 +33,19 @@ class Control(Page):
     form_model = models.Player
     form_fields = [ 'control_1', 'control_2', 'control_3', 'control_4',
                     'control_5', 'control_6', 'control_7']
+'''
 
-
-# class WaitPage(WaitPage):
-# WaitPage class wird nicht genommen, damit es beim letzten User nicht automatisch weiter geht.
-# Der Experimentator setzt mit "advanced slowest user" das Experiment fort
-class WaitPage(Page):
+class WaitPage(WaitPage):
     def is_displayed(self):
-        # zeige Warteseite nur nach Kontrollfragen (zu Beginn) an
+        return self.round_number == Constants.num_rounds
+    title_text = "Bitte warten."
+    body_text = "Es geht weiter, wenn alle Teilnehmer diese Stufe erreicht haben."
+
+class ControlPage(Page):
+    # keine class WaitPage, damit es beim letzten User nicht automatisch weiter geht.
+    # Der Experimentator setzt mit "advanced slowest user" das Experiment fort
+    def is_displayed(self):
+        # zeige Warteseite nur nach TestRun (zu Beginn) an
         return self.round_number == 1
 
 class BDM(Page):
@@ -48,6 +55,7 @@ class BDM(Page):
         # left: wieviele Snacks noch bewertet werden müssen
         return {
             'image_path': 'kosfeld_test/' + str(Constants.list_snacks[self.participant.vars['num_snacks'][0]]) + '.JPG',
+            'p_label'   : self.participant.label,
             'snack'     : str(Constants.list_snacks[self.participant.vars['num_snacks'][0]]),
             'left'      : len(Constants.list_snacks)-len(self.participant.vars['num_snacks'])
         }
@@ -61,7 +69,7 @@ class BDM(Page):
     # Feld für den Wert des Sliders
     # Feld für den Namen des Snacks
     form_model = models.Player
-    form_fields = ['slider_value', 'rated_snack']
+    form_fields = ['p_label', 'slider_value', 'rated_snack']
 
 
 class End(Page):
@@ -81,8 +89,8 @@ class End(Page):
 page_sequence = [
     Instructions,
     TestRun,
-    Control,
-    WaitPage,
+    ControlPage,
     BDM,
+    WaitPage,
     End
 ]

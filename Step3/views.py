@@ -13,7 +13,6 @@ class Instructions(Page):
             'treatment'     : str(self.participant.vars['treatment'])
         }
 
-
 class Step3(Page):
     def vars_for_template(self):
         snack1 = self.participant.vars["snacks_to_show_step3"][0]
@@ -46,6 +45,12 @@ class Step3(Page):
     form_model = models.Player
     form_fields = ['offer_1', 'offer_2', 'decision', 'treatment']
 
+class WaitPage(WaitPage):
+    def is_displayed(self):
+        # zeige Warte-Seite nur nach der letzten Runde an
+        return self.round_number == Constants.num_rounds
+    title_text = "Bitte warten."
+    body_text = "Es geht weiter, wenn alle Teilnehmer diese Stufe erreicht haben."
 
 class Results(Page):
     def is_displayed(self):
@@ -56,5 +61,6 @@ class Results(Page):
 page_sequence = [
     Instructions,
     Step3,
+    WaitPage,
     Results
 ]
