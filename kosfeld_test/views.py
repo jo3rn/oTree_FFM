@@ -54,6 +54,7 @@ class Step2(Page):
         if self.participant.vars['treatment'] == 'control':
             dependency1 = ''
             dependency2 = ''
+            default = '-'
 
         # Treatment 1
         if self.participant.vars['treatment'] == 'treatment_1':
@@ -61,16 +62,26 @@ class Step2(Page):
             random.shuffle(checked_or_not)
             dependency1 = checked_or_not[0]
             dependency2 = checked_or_not[1]
+            if dependency1 == '':
+                default = snack2
+            else:
+                default = snack1
 
         # Treatment 2
         if self.participant.vars['treatment'] == 'treatment_2':
             dependency1 = self.player.set_healthier_as_default(snack1, snack2)
             dependency2 = self.player.set_healthier_as_default(snack2, snack1)
+            if dependency1 == '':
+                default = snack2
+            else:
+                default = snack1
 
 
         return {# Pfad zu den Bildern der Snacks
                 'image_path1': 'kosfeld_test/' + snack1 + '.JPG',
                 'image_path2': 'kosfeld_test/' + snack2 + '.JPG',
+                # der default Snack
+                'default': default,
                 # Namen der Snacks
                 'snack1': snack1,
                 'snack2': snack2,
@@ -93,7 +104,7 @@ class Step2(Page):
 
     # Radio Buttons aus Player-Class von models.py
     form_model = models.Player
-    form_fields = ['offer_1', 'offer_2', 'decision', 'treatment']
+    form_fields = ['offer_1', 'offer_2', 'decision', 'treatment', 'default']
 
 class WaitPage(WaitPage):
     def is_displayed(self):

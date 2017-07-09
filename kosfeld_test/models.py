@@ -79,9 +79,9 @@ class Player(BasePlayer):
     # die zwei Snacks, zwischen denen sich der Teilnehmer entscheiden muss
     offer_1 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
     offer_2 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    # der Snack, der als default gesetzt wurde
+    default = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
     # der Snack, für den sich der Teilnehmer entscheidet
     decision = models.CharField()
     # Treatment-Gruppe des Teilnehmers
-    treatment = models.CharField()
-
-    #decision = models.CharField(widget=widgets.RadioSelect())      {% formfield player.decision with label=label %}
+    treatment = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
