@@ -128,7 +128,7 @@ class Lastpage(Page):
                     participant_WTP4 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack4']])
                 except KeyError:
                     print("########### A KeyError has occured for snack4 Step 4!")
-                    participant_WT4 = 0
+                    participant_WTP4 = 0
                 try:
                     participant_WTP5 = float(self.participant.vars['WTPs_step_4'][self.participant.vars['random_snack5']])
                 except KeyError:

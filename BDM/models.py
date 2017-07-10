@@ -30,6 +30,10 @@ class Constants(BaseConstants):
             list_snacks.append(snack)
         else:
             continue
+    # Bug-Fix 'in Live-Session werden nicht alle Snacks angezeigt':
+    # da os.listdir u.U. "arbitrary" ordnet und Constants u.U. neu berechnet wird,
+    # ist nicht gegeben, dass list_snacks immer gleich geordnet ist, daher:
+    list_snacks.sort()
 
     # Anzahl an Entscheidungen, die in Step 1 gefällt werden sollen = Anzahl Snacks gesamt
     num_rounds = len(os.listdir('_static//kosfeld_test'))
