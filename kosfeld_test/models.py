@@ -27,6 +27,8 @@ class Constants(BaseConstants):
             list_snacks.append(snack)
         else:
             continue
+    # Bug-Fix, Erklärung siehe BDM-App:
+    list_snacks.sort()
 
     default_ranking = open('_static//default_ranking.txt', 'r')
     healthy_list = []

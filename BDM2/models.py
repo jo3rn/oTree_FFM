@@ -28,6 +28,8 @@ class Constants(BaseConstants):
             list_snacks.append(snack)
         else:
             continue
+    # Bug-Fix, Erklärung siehe BDM-App:
+    list_snacks.sort()
 
     # Anzahl an Entscheidungen, die in Step 4 gefällt werden sollen = Anzahl Snacks gesamt
     num_rounds = len(os.listdir('_static//kosfeld_test'))

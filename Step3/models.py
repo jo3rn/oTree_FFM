@@ -28,7 +28,8 @@ class Constants(BaseConstants):
             list_snacks.append(snack)
         else:
             continue
-
+    # Bug-Fix, Erklärung siehe BDM-App:
+    list_snacks.sort()
 
 class Subsession(BaseSubsession):
     pass
