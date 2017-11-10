@@ -1,18 +1,19 @@
 # oTree_Uni_ffm
-setting up oTree at University of Frankfurt
+a pilot experiment to test a possible switching from ztree to otree
 
-# initial TO DOs
-- Michael Rohrdrommel (Infrastruktur, Webserver)
+# useful hints
+- for implementation:
     - https://otree.readthedocs.io/en/latest/install.html
     - https://otree.readthedocs.io/en/latest/server/windows.html
-      Python 3.6(+)
-      oTree (pip3 install -U otree-core)
-      PostgreSQL
-      psycopg2 (http://www.stickpeople.com/projects/python/win-psycopg/)
-      Redis (https://github.com/MSOpenTech/redis/releases)
-    
-- Django (read from blocks and extends) https://docs.djangoproject.com/en/1.8/ref/templates/language/
-- oTree documentation (read from templates) http://otree.readthedocs.io/en/latest/templates.html
+    - Python 3.6(+)
+    - oTree (pip3 install -U otree-core)
+    - PostgreSQL
+    - psycopg2 (http://www.stickpeople.com/projects/python/win-psycopg/)
+    - Redis (https://github.com/MSOpenTech/redis/releases)
+
+- for development
+   - [Django documentation](https://docs.djangoproject.com/)
+   - [oTree documentation](http://otree.readthedocs.io/)
 
 
 # Important note
