@@ -1,5 +1,5 @@
-# oTree_Uni_ffm
-a pilot experiment to test a possible switching from ztree to otree
+# oTree_FFM
+a pilot experiment to test a possible switching from ztree to otree at the university of Frankfurt
 
 # useful hints
 - for implementation:
