@@ -6,7 +6,7 @@ a pilot experiment to test a possible switching from ztree to otree at the unive
     - https://otree.readthedocs.io/en/latest/install.html
     - https://otree.readthedocs.io/en/latest/server/windows.html
     - Python 3.6(+)
-    - oTree (pip3 install -U otree-core)
+    - oTree (pip install -U otree)
     - PostgreSQL
     - psycopg2 (http://www.stickpeople.com/projects/python/win-psycopg/)
     - Redis (https://github.com/MSOpenTech/redis/releases)
