@@ -30,7 +30,7 @@ class Control(Page):
         return self.round_number == 1
 
     # Eingabefelder für die Kontrollfragen
-    form_model = models.Player
+    form_model = 'player'
     form_fields = [ 'control_1', 'control_2', 'control_3', 'control_4',
                     'control_5', 'control_6', 'control_7']
 '''
@@ -68,7 +68,7 @@ class BDM(Page):
 
     # Feld für den Wert des Sliders
     # Feld für den Namen des Snacks
-    form_model = models.Player
+    form_model = 'player'
     form_fields = ['p_label', 'slider_value', 'rated_snack']
 
 

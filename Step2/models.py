@@ -38,7 +38,7 @@ class Constants(BaseConstants):
     default_ranking.close()
 
 class Subsession(BaseSubsession):
-    def before_session_starts(self):
+    def creating_session(self):
         for p in self.get_players():
             if 'decision_count' not in p.participant.vars:
                 p.participant.vars['decision_count'] = 1
@@ -75,15 +75,15 @@ class Player(BasePlayer):
 
     #### DATA-fields
     # Kontrollfragen - dem Experimentator wird mit "HILFE" eine falsche Antwort signalisiert
-    #control_4 = models.CharField(verbose_name="Kotrollfrage 4:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
-    #control_5 = models.CharField(verbose_name="Kotrollfrage 5:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
-    #control_6 = models.CharField(verbose_name="Kotrollfrage 6:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
+    #control_4 = models.StringField(verbose_name="Kotrollfrage 4:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
+    #control_5 = models.StringField(verbose_name="Kotrollfrage 5:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
+    #control_6 = models.StringField(verbose_name="Kotrollfrage 6:", choices=[['ok', 'Ja'], ['HILFE', 'Nein']], widget=widgets.RadioSelect())
     # die zwei Snacks, zwischen denen sich der Teilnehmer entscheiden muss
-    offer_1 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
-    offer_2 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    offer_1 = models.StringField(widget=widgets.HiddenInput(), verbose_name='')
+    offer_2 = models.StringField(widget=widgets.HiddenInput(), verbose_name='')
     # der Snack, der als default gesetzt wurde
-    default = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    default = models.StringField(widget=widgets.HiddenInput(), verbose_name='')
     # der Snack, für den sich der Teilnehmer entscheidet
-    decision = models.CharField()
+    decision = models.StringField()
     # Treatment-Gruppe des Teilnehmers
-    treatment = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    treatment = models.StringField(widget=widgets.HiddenInput(), verbose_name='')

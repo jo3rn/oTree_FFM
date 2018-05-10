@@ -54,9 +54,9 @@ class Player(BasePlayer):
 
     #### DATA-fields
     # die zwei Snacks, zwischen denen sich der Teilnehmer entscheiden muss
-    offer_1 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
-    offer_2 = models.CharField(widget=widgets.HiddenInput(), verbose_name='')
+    offer_1 = models.StringField(widget=widgets.HiddenInput(), verbose_name='')
+    offer_2 = models.StringField(widget=widgets.HiddenInput(), verbose_name='')
     # der Snack, für den sich der Teilnehmer entscheidet
-    decision = models.CharField()
+    decision = models.StringField()
     # Treatment-Gruppe des Teilnehmers
-    treatment = models.CharField()
+    treatment = models.StringField()

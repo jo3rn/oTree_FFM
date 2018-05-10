@@ -42,7 +42,7 @@ class Step3(Page):
         self.player.count_decisions()
 
     # Radio Buttons aus Player-Class von models.py
-    form_model = models.Player
+    form_model = 'player'
     form_fields = ['offer_1', 'offer_2', 'decision', 'treatment']
 
 class WaitPage(WaitPage):

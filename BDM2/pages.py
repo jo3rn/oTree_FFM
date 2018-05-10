@@ -56,7 +56,7 @@ class BDM2(Page):
         self.player.fill_BDM_dict()
         self.player.unfill_snack_list()
 
-    form_model = models.Player
+    form_model = 'player'
     form_fields = ['slider_value', 'rated_snack']
 
 
@@ -164,7 +164,7 @@ class Lastpage(Page):
             'payoff_without_snack': payoff_without_snack
         }
 
-    form_model = models.Player
+    form_model = 'player'
     form_fields = [ 'rand_snack', 'rand_price', 'p_label', 'payout1', 'payout2', 'payout3',
                     'payout4', 'payout5', 'payout6', 'payout7', 'payout8', 'payout9', 'payout10']
 

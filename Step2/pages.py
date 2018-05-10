@@ -36,7 +36,7 @@ class Control2(Page):
     def is_displayed(self):
         return self.round_number == 1
 
-    form_model = models.Player
+    form_model = 'player'
     form_fields = ['control_4', 'control_5', 'control_6']
 '''
 
@@ -103,7 +103,7 @@ class Step2(Page):
         self.player.count_decisions()
 
     # Radio Buttons aus Player-Class von models.py
-    form_model = models.Player
+    form_model = 'player'
     form_fields = ['offer_1', 'offer_2', 'decision', 'treatment', 'default']
 
 class WaitPage(WaitPage):
