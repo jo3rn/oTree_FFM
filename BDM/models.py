@@ -20,11 +20,11 @@ class Constants(BaseConstants):
     players_per_group = None
 
     # Anzahl unterschiedlicher Snack-Bilder, basierend auf Dateien im Snackbilder-Ordner
-    num_snacks = len(os.listdir('_static//kosfeld_test'))
+    num_snacks = len(os.listdir('_static//img_snacks'))
 
     # Liste der Snacks, basierend auf .jpg-Dateien im Snackbilder-Ordner
     list_snacks = []
-    for snack in os.listdir('_static//kosfeld_test'):
+    for snack in os.listdir('_static//img_snacks'):
         if snack.endswith('.JPG'):
             snack = snack[:-4]
             list_snacks.append(snack)
@@ -36,7 +36,7 @@ class Constants(BaseConstants):
     list_snacks.sort()
 
     # Anzahl an Entscheidungen, die in Step 1 gefällt werden sollen = Anzahl Snacks gesamt
-    num_rounds = len(os.listdir('_static//kosfeld_test'))
+    num_rounds = len(os.listdir('_static//img_snacks'))
 
 
 

@@ -47,7 +47,7 @@ class Instructions(Page):
 class BDM2(Page):
     def vars_for_template(self):
         return {
-            'image_path': 'kosfeld_test/' + str(Constants.list_snacks[self.participant.vars['num_snacks_Step4'][0]]) + '.JPG',
+            'image_path': 'img_snacks/' + str(Constants.list_snacks[self.participant.vars['num_snacks_Step4'][0]]) + '.JPG',
             'snack'     : str(Constants.list_snacks[self.participant.vars['num_snacks_Step4'][0]]),
             'left'      : len(Constants.list_snacks)-len(self.participant.vars['num_snacks_Step4'])
         }

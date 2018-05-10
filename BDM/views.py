@@ -19,7 +19,7 @@ class TestRun(Page):
         # für den Testlauf wird ein Bild zufällig gewählt
         test_image = random.choice(Constants.list_snacks)
         return {
-            'image_path': 'kosfeld_test/' + str(test_image) + '.JPG'
+            'image_path': 'img_snacks/' + str(test_image) + '.JPG'
         }
 
 '''
@@ -54,7 +54,7 @@ class BDM(Page):
         # snack: Name des Snacks
         # left: wieviele Snacks noch bewertet werden müssen
         return {
-            'image_path': 'kosfeld_test/' + str(Constants.list_snacks[self.participant.vars['num_snacks'][0]]) + '.JPG',
+            'image_path': 'img_snacks/' + str(Constants.list_snacks[self.participant.vars['num_snacks'][0]]) + '.JPG',
             'p_label'   : self.participant.label,
             'snack'     : str(Constants.list_snacks[self.participant.vars['num_snacks'][0]]),
             'left'      : len(Constants.list_snacks)-len(self.participant.vars['num_snacks'])

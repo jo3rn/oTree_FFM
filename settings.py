@@ -16,7 +16,7 @@ if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
 else:
 #    DEBUG = True
 	DEBUG = True # wieder löschen wenn Umgebungsvariable gesetzt					!!!!!!!!!!!!!!!
-	
+
 ADMIN_USERNAME = 'admin'
 
 # for security, best to set admin password in an environment variable
@@ -116,7 +116,7 @@ SESSION_CONFIGS = [
          'name': 'Nudge_Experiment',
          'display_name': 'Nudging Experiment',
          'num_demo_participants': 5,
-         'app_sequence': ['BDM', 'kosfeld_test', 'Step3', 'BDM2'],
+         'app_sequence': ['BDM', 'Step2', 'Step3', 'BDM2'],
      }
 ]
 
