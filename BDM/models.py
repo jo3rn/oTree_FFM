@@ -187,6 +187,8 @@ class Player(BasePlayer):
     control_6 = models.StringField(verbose_name="Indem ich eine niedrigere Zahlungsbereitschaft angebe, kann ich nicht beeinflussen, welchen Preis ich zahle wenn ich das Gut kaufe, da der Preis zufällig bestimmt wird. Ich zahle diesen zufällig gezogenen Preis nur, falls er nicht höher als meine Zahlungsbereitschaft ist.", choices=[['ok', 'korrekt'], ['HILFE', 'nicht korrekt']], widget=widgets.RadioSelect())
     control_7 = models.StringField(verbose_name="Indem ich eine niedrigere Zahlungsbereitschaft angebe, kann es passieren, dass der zufällig gezogene Preis oberhalb dieser angegebenen, aber unterhalb meiner tatsächlichen Zahlungsbereitschaft liegt. Ich würde dann das Gut nicht bekommen, obwohl ich es zu einem Preis hätte kaufen können, der unter meiner tatsächlichen Zahlungsbereitschaft liegt.", choices=[['ok', 'korrekt'], ['HILFE', 'nicht korrekt']], widget=widgets.RadioSelect())
     '''
+    # Welchem Treatment der Teilnehmer zugeordnet ist
+    treatment = models.StringField(widget=widgets.HiddenInput(), verbose_name='')
     # Label des PCs
     p_label = models.StringField(widget=widgets.HiddenInput(), verbose_name='')
     # was der Teilnehmer mit dem Schieberegler wählt
