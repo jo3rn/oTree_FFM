@@ -65,10 +65,9 @@ class Subsession(BaseSubsession):
                     p.participant.vars['step2_decisions'] = []
                     p.participant.vars['step3_decisions'] = []
 
-
             # initialisiere BDM-Dictionary
             # erstellt ein zunächst leeres Dictionary, in das nach jeder Bewertung
-            # über Player.fill_BDM_dict() ein key-value-Paar eingetragen wird
+            # über self.player.fill_BDM_dict() ein key-value-Paar eingetragen wird
             # key: Snack
             # value: willingness-to-pay
             for p in self.get_players():

@@ -106,7 +106,7 @@ class Step2(Page):
     form_model = 'player'
     form_fields = ['offer_1', 'offer_2', 'decision', 'treatment', 'default']
 
-class WaitPage(WaitPage):
+class CustomWaitPage(WaitPage):
     def is_displayed(self):
         # zeige Warte-Seite nur nach der letzten Runde an
         return self.round_number == Constants.num_rounds
@@ -125,6 +125,6 @@ class Results(Page):
 
 page_sequence = [
     Step2,
-    WaitPage,
+    CustomWaitPage,
     Results
 ]

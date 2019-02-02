@@ -35,7 +35,7 @@ class Control(Page):
                     'control_5', 'control_6', 'control_7']
 '''
 
-class WaitPage(WaitPage):
+class CustomWaitPage(WaitPage):
     def is_displayed(self):
         return self.round_number == Constants.num_rounds
     title_text = "Bitte warten."
@@ -91,6 +91,6 @@ page_sequence = [
     TestRun,
     ControlPage,
     BDM,
-    WaitPage,
+    CustomWaitPage,
     End
 ]
